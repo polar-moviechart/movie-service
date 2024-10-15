@@ -1,6 +1,10 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
+import com.polar_moviechart.movieservice.domain.service.MovieDailyRankDto;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -9,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movie_daily_stats")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class MovieDailyStats {
 
     @Id
@@ -17,16 +22,16 @@ public class MovieDailyStats {
     private Long id;
 
     @Column(nullable = false)
-    private final int ranking;
+    private int ranking;
 
     @Column(nullable = false)
-    private final int revenue;
+    private int revenue;
 
     @Column(nullable = false)
-    private final int audience;
+    private int audience;
 
     @Column(nullable = false)
-    private final LocalDate date;
+    private LocalDate date;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -38,10 +43,18 @@ public class MovieDailyStats {
     @JoinColumn(name = "movie_code", referencedColumnName = "code",nullable = false) // 외래 키 설정
     private Movie movie;
 
+    @Builder
     public MovieDailyStats(int ranking, int revenue, LocalDate date, int audience) {
         this.ranking = ranking;
         this.revenue = revenue;
         this.date = date;
         this.audience = audience;
+    }
+
+    public MovieDailyRankDto toDto() {
+        return new MovieDailyRankDto(
+                ranking,
+                movie.toDto()
+        );
     }
 }

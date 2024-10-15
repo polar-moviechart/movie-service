@@ -17,5 +17,5 @@ public class MovieDto {
     private final String synopsys;
 
     private final List<MovieDirectorDto> movieDirectorDtos;
-    private final List<MovieLeadactorDto> leadactorDtos;
+    private final List<MovieLeadactorDto> movieLeadactorDtos;
 }
