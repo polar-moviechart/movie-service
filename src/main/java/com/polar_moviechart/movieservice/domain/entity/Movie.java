@@ -62,7 +62,7 @@ public class Movie {
         List<MovieDirectorDto> directors = this.directors.stream()
                 .map(director -> director.getDirector().toDto())
                 .toList();
-        List<MovieLeadactorDto> leadactorDtos = this.leadactors.stream()
+        List<MovieLeadactorDto> leadactors = this.leadactors.stream()
                 .map(leadactor -> leadactor.getLeadactor().toDto())
                 .toList();
 
@@ -74,7 +74,7 @@ public class Movie {
                 productionYear,
                 synopsys,
                 directors,
-                leadactorDtos
+                leadactors
         );
     }
 }
