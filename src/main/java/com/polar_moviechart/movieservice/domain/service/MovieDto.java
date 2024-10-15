@@ -11,6 +11,7 @@ import java.util.List;
 public class MovieDto {
     private final int code;
     private final String title;
+    private final List<String> poster;
     private final String details;
     private final LocalDate releaseDate;
     private final Integer productionYear;
