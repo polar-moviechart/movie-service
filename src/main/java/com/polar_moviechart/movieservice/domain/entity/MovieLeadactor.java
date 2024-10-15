@@ -17,15 +17,17 @@ public class MovieLeadactor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private final int movieCode;
-
-    @Column(nullable = false)
-    private final int leadactorCode;
-
     @CreatedDate
     private LocalDateTime createdAt;
 
     @LastModifiedDate
     private LocalDateTime modifiedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "movie_code", referencedColumnName = "code", nullable = false)
+    private Movie movie;
+
+    @ManyToOne
+    @JoinColumn(name = "leadactor_code", referencedColumnName = "code", nullable = false)
+    private Leadactor leadactor;
 }
