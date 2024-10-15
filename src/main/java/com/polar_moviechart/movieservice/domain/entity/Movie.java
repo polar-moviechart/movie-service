@@ -69,6 +69,7 @@ public class Movie {
         return new MovieDto(
                 code,
                 title,
+                List.of(),
                 details,
                 releaseDate,
                 productionYear,
