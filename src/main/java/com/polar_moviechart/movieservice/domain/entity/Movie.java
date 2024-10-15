@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
+import com.polar_moviechart.movieservice.domain.service.MovieDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -56,5 +57,16 @@ public class Movie {
         this.releaseDate = LocalDate.now();
         this.productionYear = 0;
         this.synopsys = "";
+    }
+
+    public MovieDto toDto() {
+        return new MovieDto(
+                code,
+                title,
+                details,
+                releaseDate,
+                productionYear,
+                synopsys
+        );
     }
 }
