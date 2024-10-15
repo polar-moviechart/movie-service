@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
@@ -14,4 +15,6 @@ public class MovieDto {
     private final LocalDate releaseDate;
     private final Integer productionYear;
     private final String synopsys;
+
+    private final List<MovieDirectorDto> movieDirectorDtos;
 }
