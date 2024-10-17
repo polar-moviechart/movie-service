@@ -58,7 +58,7 @@ public class Movie {
     @Column(nullable = false)
     private List<MovieLeadactor> leadactors = new ArrayList<>();
 
-    public MovieDto toDto() {
+    public MovieDto toDto(int ranking) {
         List<MovieDirectorDto> directors = this.directors.stream()
                 .map(director -> director.getDirector().toDto())
                 .toList();
@@ -68,6 +68,7 @@ public class Movie {
 
         return new MovieDto(
                 code,
+                ranking,
                 title,
                 List.of(),
                 details,

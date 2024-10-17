@@ -1,7 +1,7 @@
 package com.polar_moviechart.movieservice.domain.controller;
 
-import com.polar_moviechart.movieservice.domain.service.MovieDailyRankDto;
 import com.polar_moviechart.movieservice.domain.service.MovieDailyStatsQueryService;
+import com.polar_moviechart.movieservice.domain.service.MovieDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +20,7 @@ public class MovieController {
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
 
     @GetMapping("")
-    public List<MovieDailyRankDto> getMovies(
+    public List<MovieDto> getMovies(
             @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate targetDate,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size

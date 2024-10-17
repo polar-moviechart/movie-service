@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
-import com.polar_moviechart.movieservice.domain.service.MovieDailyRankDto;
+import com.polar_moviechart.movieservice.domain.service.MovieDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -51,10 +51,7 @@ public class MovieDailyStats {
         this.audience = audience;
     }
 
-    public MovieDailyRankDto toDto() {
-        return new MovieDailyRankDto(
-                ranking,
-                movie.toDto()
-        );
+    public MovieDto toDto() {
+        return movie.toDto(ranking);
     }
 }

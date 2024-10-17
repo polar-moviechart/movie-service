@@ -23,7 +23,7 @@ class MovieDailyStatsQueryServiceTest {
         PageRequest pageable = PageRequest.of(0,  10);
         LocalDate targetDate = LocalDate.of(2004, 01, 01);
         // when
-        List<MovieDailyRankDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
+        List<MovieDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
         // then
         Assertions.assertThat(movieDailyRankInfo).isNotEmpty();
     }
