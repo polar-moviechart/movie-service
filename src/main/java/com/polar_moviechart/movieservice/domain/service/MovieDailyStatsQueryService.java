@@ -18,7 +18,7 @@ public class MovieDailyStatsQueryService {
     private final MovieDailyStatsRepository movieDailyStatsRepository;
 
     @Transactional(readOnly = true)
-    public List<MovieDailyRankDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
+    public List<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
         Page<MovieDailyStats> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
         return dailyStats.getContent().stream()
                 .map(stats -> stats.toDto())

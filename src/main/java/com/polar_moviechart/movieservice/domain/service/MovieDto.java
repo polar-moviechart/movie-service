@@ -10,6 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieDto {
     private final int code;
+    private final int ranking;
     private final String title;
     private final List<String> poster;
     private final String details;
