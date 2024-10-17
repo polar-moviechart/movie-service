@@ -74,7 +74,6 @@ public class Movie {
                 details,
                 releaseDate,
                 productionYear,
-                synopsys,
                 directors,
                 leadactors
         );
