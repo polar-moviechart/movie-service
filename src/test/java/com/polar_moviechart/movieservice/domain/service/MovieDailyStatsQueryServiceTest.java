@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootTest
 class MovieDailyStatsQueryServiceTest {
@@ -22,8 +23,8 @@ class MovieDailyStatsQueryServiceTest {
         PageRequest pageable = PageRequest.of(0,  10);
         LocalDate targetDate = LocalDate.of(2004, 01, 01);
         // when
-        DailyMovieRankDto movieDailyBrief = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
+        List<MovieDailyRankDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
         // then
-        Assertions.assertThat(movieDailyBrief.getRankDtos()).isNotEmpty();
+        Assertions.assertThat(movieDailyRankInfo).isNotEmpty();
     }
 }
