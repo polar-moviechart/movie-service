@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
+import com.polar_moviechart.movieservice.domain.service.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.MovieDirectorDto;
 import com.polar_moviechart.movieservice.domain.service.MovieDto;
 import com.polar_moviechart.movieservice.domain.service.MovieLeadactorDto;
@@ -58,15 +59,28 @@ public class Movie {
     @Column(nullable = false)
     private List<MovieLeadactor> leadactors = new ArrayList<>();
 
-    public MovieDto toDto() {
-        List<MovieDirectorDto> directors = this.directors.stream()
-                .map(director -> director.getDirector().toDto())
-                .toList();
-        List<MovieLeadactorDto> leadactors = this.leadactors.stream()
-                .map(leadactor -> leadactor.getLeadactor().toDto())
-                .toList();
+    public MovieDto toDto(int ranking) {
+        List<MovieDirectorDto> directors = getDirectorDtos();
+        List<MovieLeadactorDto> leadactors = getLeadactorDtos();
 
         return new MovieDto(
+                code,
+                ranking,
+                title,
+                List.of(),
+                details,
+                releaseDate,
+                productionYear,
+                directors,
+                leadactors
+        );
+    }
+
+    public MovieDetailsDto toDto() {
+        List<MovieDirectorDto> directors = getDirectorDtos();
+        List<MovieLeadactorDto> leadactors = getLeadactorDtos();
+
+        return new MovieDetailsDto(
                 code,
                 title,
                 List.of(),
@@ -77,5 +91,19 @@ public class Movie {
                 directors,
                 leadactors
         );
+    }
+
+    private List<MovieLeadactorDto> getLeadactorDtos() {
+        List<MovieLeadactorDto> leadactors = this.leadactors.stream()
+                .map(leadactor -> leadactor.getLeadactor().toDto())
+                .toList();
+        return leadactors;
+    }
+
+    private List<MovieDirectorDto> getDirectorDtos() {
+        List<MovieDirectorDto> directors = this.directors.stream()
+                .map(director -> director.getDirector().toDto())
+                .toList();
+        return directors;
     }
 }
