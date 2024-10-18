@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface MovieDailyStatsRepository extends JpaRepository<MovieDailyStats, Long> {
     Page<MovieDailyStats> findAllByDate(LocalDate targetDate, Pageable pageable);
+
+    List<MovieDailyStats> findByMovieCodeOrderByDateDesc(int code, Pageable pageable);
 }
