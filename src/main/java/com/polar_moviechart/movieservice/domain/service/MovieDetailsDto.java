@@ -8,14 +8,14 @@ import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class MovieDto {
+public class MovieDetailsDto {
     private final int code;
-    private final int ranking;
     private final String title;
     private final List<String> poster;
     private final String details;
     private final LocalDate releaseDate;
     private final Integer productionYear;
+    private final String synopsys;
 
     private final List<MovieDirectorDto> movieDirectorDtos;
     private final List<MovieLeadactorDto> movieLeadactorDtos;
