@@ -1,13 +1,10 @@
 package com.polar_moviechart.movieservice.domain.controller;
 
-import com.polar_moviechart.movieservice.domain.service.MovieDailyStatsQueryService;
-import com.polar_moviechart.movieservice.domain.service.MovieDto;
+import com.polar_moviechart.movieservice.domain.enums.StatField;
+import com.polar_moviechart.movieservice.domain.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +15,7 @@ import java.util.List;
 public class MovieController {
 
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
+    private final MovieQueryService movieQueryService;
 
     @GetMapping("")
     public List<MovieDto> getMovies(
@@ -27,5 +25,18 @@ public class MovieController {
     ) {
         PageRequest pageable = PageRequest.of(page, size);
         return movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
+    }
+
+    @GetMapping("/{code}")
+    public MovieDetailsDto getMovie(@PathVariable(name = "code") int code) {
+        return movieQueryService.getMovie(code);
+    }
+
+    @GetMapping("/{code}/stats")
+    public MovieDailyStatsResponse getMovieStats(@PathVariable(name = "code") int code,
+                                                 @RequestParam(name = "limit") int limit,
+                                                 @RequestParam(name = "field") StatField statField) {
+        PageRequest pageable = PageRequest.of(0, limit);
+        return movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statField);
     }
 }
