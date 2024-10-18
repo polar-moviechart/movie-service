@@ -1,6 +1,7 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
-import com.polar_moviechart.movieservice.domain.service.MovieDailyRankDto;
+import com.polar_moviechart.movieservice.domain.enums.StatField;
+import com.polar_moviechart.movieservice.domain.service.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -51,10 +52,18 @@ public class MovieDailyStats {
         this.audience = audience;
     }
 
-    public MovieDailyRankDto toDto() {
-        return new MovieDailyRankDto(
-                ranking,
-                movie.toDto()
-        );
+    public MovieDto toMovieDto() {
+        return movie.toDto(ranking);
+    }
+
+    public MovieDailyStat toDto(StatField statField) {
+        if (statField.equals(StatField.RANKING)) {
+            return new MovieDailyRank(date, ranking);
+        }
+        if (statField.equals(StatField.AUDIENCE)) {
+            return new MovieDailyAudience(date, audience);
+        } else {
+            return new MovieDailyRevenue(date, revenue);
+        }
     }
 }

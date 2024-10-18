@@ -1,9 +1,11 @@
 package com.polar_moviechart.movieservice.domain.service;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStats;
+import com.polar_moviechart.movieservice.domain.enums.StatField;
 import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +20,20 @@ public class MovieDailyStatsQueryService {
     private final MovieDailyStatsRepository movieDailyStatsRepository;
 
     @Transactional(readOnly = true)
-    public DailyMovieRankDto getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
+    public List<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
         Page<MovieDailyStats> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
-        List<MovieDailyRankDto> movieDailyRankDtos = dailyStats.getContent().stream()
-                .map(stats -> stats.toDto())
+        return dailyStats.getContent().stream()
+                .map(stats -> stats.toMovieDto())
                 .toList();
-        return new DailyMovieRankDto(targetDate, movieDailyRankDtos);
+    }
+
+    public MovieDailyStatsResponse getMovieDailyStats(int code, PageRequest pageable, StatField statField) {
+        List<MovieDailyStats> dailyStats = movieDailyStatsRepository
+                .findByMovieCodeOrderByDateDesc(code, pageable);
+
+        List<MovieDailyStat> dailyStatsDtos = dailyStats.stream()
+                .map(stats -> stats.toDto(statField))
+                .toList();
+        return new MovieDailyStatsResponse(code, dailyStatsDtos);
     }
 }

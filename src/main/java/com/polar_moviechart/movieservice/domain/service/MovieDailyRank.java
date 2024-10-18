@@ -1,15 +1,14 @@
 package com.polar_moviechart.movieservice.domain.service;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @RequiredArgsConstructor
-public class DailyMovieRankDto {
+public class MovieDailyRank implements MovieDailyStat {
     private final LocalDate date;
-
-    private final List<MovieDailyRankDto> rankDtos;
+    private final int ranking;
 }
