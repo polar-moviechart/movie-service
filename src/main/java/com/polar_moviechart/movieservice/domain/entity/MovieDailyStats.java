@@ -58,7 +58,7 @@ public class MovieDailyStats {
 
     public MovieDailyStat toDto(StatField statField) {
         if (statField.equals(StatField.RANKING)) {
-            return new MovieDailyRank(date, ranking);
+            return new MovieDailyRanking(date, ranking);
         }
         if (statField.equals(StatField.AUDIENCE)) {
             return new MovieDailyAudience(date, audience);
