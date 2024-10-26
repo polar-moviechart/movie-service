@@ -12,7 +12,7 @@ public class WebConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/movies/**")
+                registry.addMapping("/api/v1/**")
                         .allowedOrigins("http://localhost:3000") // Next.js의 localhost 포트를 허용
                         .allowedMethods("GET", "POST", "PUT")
                         .allowedHeaders("*")
