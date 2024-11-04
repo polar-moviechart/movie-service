@@ -23,5 +23,8 @@ springdoc:
     display-request-duration: true
     operations-sorter: alpha
 
+user-service:
+  url: http://localhost:8082/api-internal/v1/users/
+
 server:
   port: 8081
