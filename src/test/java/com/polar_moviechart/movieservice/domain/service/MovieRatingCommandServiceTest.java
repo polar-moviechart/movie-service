@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ActiveProfiles("test")
 @SpringBootTest
 @Import(MovieRatingCommandService.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 class MovieRatingCommandServiceTest {
 
@@ -35,8 +34,6 @@ class MovieRatingCommandServiceTest {
     private MovieRatingCommandService movieRatingCommandService;
     @MockBean
     private UserValidationService userValidationService;
-    @Autowired
-    private EntityManager em;
 
     @BeforeEach
     void setUp() {
