@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: movie-service
+  datasource:
+    username: user
+    password: password
+    url: jdbc:mysql://localhost:3306/polartest_movie
+    data: classpath:data.sql
+  sql:
+    init:
+      mode: always
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true  # SQL 쿼리 출력
+    properties:
+      hibernate:
+        format_sql: true  # SQL 쿼리 포맷팅
