@@ -5,6 +5,13 @@ spring:
     username: user
     password: password
     url: jdbc:mysql://localhost:3306/polardb_movie
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true  # SQL 쿼리 출력
+    properties:
+      hibernate:
+        format_sql: true  # SQL 쿼리 포맷팅
 
 springdoc:
   package-to-scan: com.polar_moviechart.movieservice.domain.controller
