@@ -3,6 +3,7 @@ package com.polar_moviechart.movieservice.domain.controller;
 import com.polar_moviechart.movieservice.domain.enums.StatField;
 import com.polar_moviechart.movieservice.domain.service.*;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class MovieController {
 
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieQueryService movieQueryService;
+    private final MovieRatingCommandService movieRatingCommandService;
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
@@ -39,11 +41,21 @@ public class MovieController {
 
     @GetMapping("/{code}/stats")
     public ResponseEntity<CustomResponse<MovieDailyStatsResponse>> getMovieStats(@PathVariable(name = "code") int code,
-                                                 @RequestParam(name = "limit") int limit,
-                                                 @RequestParam(name = "field") StatField statField) {
+                                                                                 @RequestParam(name = "limit") int limit,
+                                                                                 @RequestParam(name = "field") StatField statField) {
         PageRequest pageable = PageRequest.of(0, limit);
         MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statField);
 
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
+    }
+
+    @PostMapping("/{code}/rating")
+    public ResponseEntity updateRating(HttpServletRequest request,
+                                               @PathVariable(name = "code") int code,
+                                               @RequestBody StarRatingReq starRatingReq) {
+        Long userId = (Long) request.getAttribute("userId");
+        double ratingValue = movieRatingCommandService.updateRating(code, userId, starRatingReq);
+
+        return ResponseEntity.ok(new CustomResponse<>(ratingValue));
     }
 }
