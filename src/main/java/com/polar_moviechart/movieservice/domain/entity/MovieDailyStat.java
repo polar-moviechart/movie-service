@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
-import com.polar_moviechart.movieservice.domain.enums.StatField;
+import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.*;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "movie_daily_stats")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MovieDailyStats {
+public class MovieDailyStat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class MovieDailyStats {
     private Movie movie;
 
     @Builder
-    public MovieDailyStats(int ranking, int revenue, LocalDate date, int audience) {
+    public MovieDailyStat(int ranking, int revenue, LocalDate date, int audience) {
         this.ranking = ranking;
         this.revenue = revenue;
         this.date = date;
@@ -56,14 +56,13 @@ public class MovieDailyStats {
         return movie.toDto(ranking);
     }
 
-    public MovieDailyStat toDto(StatField statField) {
-        if (statField.equals(StatField.RANKING)) {
-            return new MovieDailyRanking(date, ranking);
-        }
-        if (statField.equals(StatField.AUDIENCE)) {
-            return new MovieDailyAudience(date, audience);
+    public StatDto toDto(StatType statType) {
+        if (statType == StatType.AUDIENCE) {
+            return new StatDto(date, audience);
+        } else if (statType == StatType.RANKING) {
+            return new StatDto(date, ranking);
         } else {
-            return new MovieDailyRevenue(date, revenue);
+            return new StatDto(date, revenue);
         }
     }
 }

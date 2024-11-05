@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.controller;
 
-import com.polar_moviechart.movieservice.domain.enums.StatField;
+import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.*;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,9 +42,9 @@ public class MovieController {
     @GetMapping("/{code}/stats")
     public ResponseEntity<CustomResponse<MovieDailyStatsResponse>> getMovieStats(@PathVariable(name = "code") int code,
                                                                                  @RequestParam(name = "limit") int limit,
-                                                                                 @RequestParam(name = "field") StatField statField) {
+                                                                                 @RequestParam(name = "type") StatType statType) {
         PageRequest pageable = PageRequest.of(0, limit);
-        MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statField);
+        MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statType);
 
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
     }

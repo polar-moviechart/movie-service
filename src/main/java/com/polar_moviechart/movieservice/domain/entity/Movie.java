@@ -43,7 +43,7 @@ public class Movie {
     private String synopsys;
 
     @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
-    private List<MovieDailyStats> stats = new ArrayList<>();
+    private List<MovieDailyStat> stats = new ArrayList<>();
 
     @CreatedDate
     private LocalDateTime createdAt;

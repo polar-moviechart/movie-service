@@ -9,5 +9,5 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MovieDailyStatsResponse {
     private final int code;
-    private final List<MovieDailyStat> dailyStatsDtos;
+    private final List<StatDto> statDtos;
 }

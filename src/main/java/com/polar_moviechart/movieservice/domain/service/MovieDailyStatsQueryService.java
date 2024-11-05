@@ -1,7 +1,7 @@
 package com.polar_moviechart.movieservice.domain.service;
 
-import com.polar_moviechart.movieservice.domain.entity.MovieDailyStats;
-import com.polar_moviechart.movieservice.domain.enums.StatField;
+import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
+import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,19 +21,19 @@ public class MovieDailyStatsQueryService {
 
     @Transactional(readOnly = true)
     public List<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
-        Page<MovieDailyStats> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
+        Page<MovieDailyStat> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
         return dailyStats.getContent().stream()
                 .map(stats -> stats.toMovieDto())
                 .toList();
     }
 
-    public MovieDailyStatsResponse getMovieDailyStats(int code, PageRequest pageable, StatField statField) {
-        List<MovieDailyStats> dailyStats = movieDailyStatsRepository
+    public MovieDailyStatsResponse getMovieDailyStats(int code, PageRequest pageable, StatType statType) {
+        List<MovieDailyStat> dailyStats = movieDailyStatsRepository
                 .findByMovieCodeOrderByDateDesc(code, pageable);
 
-        List<MovieDailyStat> dailyStatsDtos = dailyStats.stream()
-                .map(stats -> stats.toDto(statField))
+        List<StatDto> statDtos = dailyStats.stream()
+                .map(stat -> stat.toDto(statType))
                 .toList();
-        return new MovieDailyStatsResponse(code, dailyStatsDtos);
+        return new MovieDailyStatsResponse(code, statDtos);
     }
 }
