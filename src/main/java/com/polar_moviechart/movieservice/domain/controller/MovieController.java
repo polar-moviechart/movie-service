@@ -52,9 +52,9 @@ public class MovieController {
     @PostMapping("/{code}/rating")
     public ResponseEntity updateRating(HttpServletRequest request,
                                                @PathVariable(name = "code") int code,
-                                               @RequestBody StarRatingReq starRatingReq) {
+                                               @RequestBody UpdateRatingRequest updateRatingRequest) {
         Long userId = (Long) request.getAttribute("userId");
-        double ratingValue = movieRatingCommandService.updateRating(code, userId, starRatingReq);
+        double ratingValue = movieRatingCommandService.updateRating(code, userId, updateRatingRequest);
 
         return ResponseEntity.ok(new CustomResponse<>(ratingValue));
     }
