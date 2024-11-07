@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service;
 
-import com.polar_moviechart.movieservice.domain.controller.UpdateRatingRequest;
+import com.polar_moviechart.movieservice.domain.controller.secureapi.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
 import org.junit.jupiter.api.BeforeEach;
