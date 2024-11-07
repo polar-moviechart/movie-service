@@ -12,9 +12,7 @@ public class GlobalControllerAdvice {
     @ExceptionHandler(value = {RuntimeException.class})
     public ResponseEntity<CustomResponse<Object>> handleRuntimeException(RuntimeException e) {
         e.printStackTrace();
-        CustomResponse<Object> customResponse = new CustomResponse<>(null);
-        customResponse.setIsSuccess(false);
-        customResponse.setCode(ErrorCode.DEFAULT_ERROR);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(customResponse);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new CustomResponse<>(ErrorInfo.DEFAULT_ERROR));
     }
 }
