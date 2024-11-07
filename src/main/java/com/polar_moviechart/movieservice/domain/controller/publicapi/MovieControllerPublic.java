@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.controller;
+package com.polar_moviechart.movieservice.domain.controller.publicapi;
 
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.*;
@@ -14,12 +14,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/movies")
-public class MovieController {
+@RequestMapping("/public/api/v1/movies")
+public class MovieControllerPublic {
 
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieQueryService movieQueryService;
-    private final MovieRatingCommandService movieRatingCommandService;
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
@@ -47,15 +46,5 @@ public class MovieController {
         MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statType);
 
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
-    }
-
-    @PostMapping("/{code}/rating")
-    public ResponseEntity updateRating(HttpServletRequest request,
-                                               @PathVariable(name = "code") int code,
-                                               @RequestBody UpdateRatingRequest updateRatingRequest) {
-        Long userId = (Long) request.getAttribute("userId");
-        double ratingValue = movieRatingCommandService.updateRating(code, userId, updateRatingRequest);
-
-        return ResponseEntity.ok(new CustomResponse<>(ratingValue));
     }
 }
