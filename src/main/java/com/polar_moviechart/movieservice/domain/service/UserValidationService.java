@@ -1,7 +1,9 @@
 package com.polar_moviechart.movieservice.domain.service;
 
+import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -9,12 +11,16 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class UserValidationService {
     private final RestTemplate restTemplate;
-    private final String userServiceUrl = "http://localhost:8082/api/v1/users/";
+    @Value("${user-service.url}")
+    private String userServiceUrl;
 
-    public boolean isUserExists(Long userId) {
+    public void validateUserExists(Long userId) {
         String requestUrl = userServiceUrl + userId;
-        return restTemplate.getForEntity(requestUrl, CustomResponse.class)
+        Boolean isUserExists = restTemplate.getForEntity(requestUrl, CustomResponse.class)
                 .getBody()
                 .getIsSuccess();
+        if (!isUserExists) {
+            throw new MovieBusinessException("유저가 존재하지 않습니다.");
+        }
     }
 }
