@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.controller;
+package com.polar_moviechart.movieservice.domain.controller.secureapi;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
