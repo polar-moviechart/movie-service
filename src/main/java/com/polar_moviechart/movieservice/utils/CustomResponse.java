@@ -1,13 +1,11 @@
 package com.polar_moviechart.movieservice.utils;
 
-import com.polar_moviechart.movieservice.exception.ErrorCode;
+import com.polar_moviechart.movieservice.exception.ErrorInfo;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Optional;
 
 @Getter
-@Setter
 public class CustomResponse<T> {
     private Boolean isSuccess = true;
     private String ErrorMsg = null;
@@ -18,9 +16,10 @@ public class CustomResponse<T> {
         this.data = Optional.ofNullable(data);
     }
 
-    public void setCode(ErrorCode errorCode) {
-        this.ErrorMsg = errorCode.getMessage();
-        this.code = errorCode.getCode();
+    public void setCode(ErrorInfo errorInfo) {
+        this.ErrorMsg = errorInfo.getMessage();
+        this.code = errorInfo.getCode();
+        this.isSuccess = false;
     }
 
     public void setCode(String errorCode) {
