@@ -5,6 +5,6 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class StarRatingReq {
+public class UpdateRatingRequest {
     private final double rating;
 }

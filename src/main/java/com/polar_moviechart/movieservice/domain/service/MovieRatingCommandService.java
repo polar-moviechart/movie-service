@@ -1,9 +1,8 @@
 package com.polar_moviechart.movieservice.domain.service;
 
-import com.polar_moviechart.movieservice.domain.controller.StarRatingReq;
+import com.polar_moviechart.movieservice.domain.controller.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
-import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +17,10 @@ public class MovieRatingCommandService {
     private final UserValidationService userValidationService;
 
     @Transactional
-    public double updateRating(Integer code, Long userId, StarRatingReq starRatingReq) {
-        double ratingValue = starRatingReq.getRating();
+    public double updateRating(Integer code, Long userId, UpdateRatingRequest updateRatingRequest) {
+        double ratingValue = updateRatingRequest.getRating();
 
-        validateUser(userId);
+        userValidationService.validateUserExists(userId);
         Optional<MovieRating> movieRatingOptional = movieRatingRepository.findByCodeAndUserId(code, userId);
 
         if (movieRatingOptional.isPresent()) {
@@ -33,11 +32,5 @@ public class MovieRatingCommandService {
             movieRatingRepository.save(movieRating);
         }
         return ratingValue;
-    }
-
-    private void validateUser(Long userId) {
-        if (!userValidationService.isUserExists(userId)) {
-            throw new MovieBusinessException("유저가 존재하지 않습니다.");
-        }
     }
 }

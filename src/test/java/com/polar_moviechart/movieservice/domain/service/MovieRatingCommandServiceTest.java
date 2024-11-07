@@ -1,15 +1,13 @@
 package com.polar_moviechart.movieservice.domain.service;
 
-import com.polar_moviechart.movieservice.domain.controller.StarRatingReq;
+import com.polar_moviechart.movieservice.domain.controller.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
-import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
@@ -37,7 +35,7 @@ class MovieRatingCommandServiceTest {
 
     @BeforeEach
     void setUp() {
-        BDDMockito.given(userValidationService.isUserExists(1L)).willReturn(true);
+        BDDMockito.willDoNothing().given(userValidationService).validateUserExists(1L);
     }
 
     @DisplayName("")
@@ -47,9 +45,9 @@ class MovieRatingCommandServiceTest {
         Long userId = 1L;
         int movieCode = 11;
         double ratingValue = 5.5;
-        StarRatingReq starRatingReq = new StarRatingReq(ratingValue);
+        UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(ratingValue);
         // when
-        movieRatingCommandService.updateRating(movieCode, userId, starRatingReq);
+        movieRatingCommandService.updateRating(movieCode, userId, updateRatingRequest);
         // then
         Optional<MovieRating> savedRating = movieRatingRepository.findByCodeAndUserId(movieCode, userId);
         assertTrue(savedRating.isPresent());
@@ -67,8 +65,8 @@ class MovieRatingCommandServiceTest {
         MovieRating existingMovieRating = new MovieRating(userId, movieCode, existingRatingValue, LocalDateTime.now(), LocalDateTime.now());
         movieRatingRepository.save(existingMovieRating);
         // when
-        StarRatingReq starRatingReq = new StarRatingReq(newRatingValue);
-        movieRatingCommandService.updateRating(movieCode, userId, starRatingReq);
+        UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(newRatingValue);
+        movieRatingCommandService.updateRating(movieCode, userId, updateRatingRequest);
         // then
         Optional<MovieRating> updatedMovieRating = movieRatingRepository.findByCodeAndUserId(movieCode, userId);
         assertTrue(updatedMovieRating.isPresent());
