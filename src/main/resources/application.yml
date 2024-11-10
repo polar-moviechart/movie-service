@@ -24,7 +24,7 @@ springdoc:
     operations-sorter: alpha
 
 user-service:
-  url: http://localhost:8082/api-internal/v1/users/
+  url: http://localhost:8082/internal/api/v1/users/
 
 server:
   port: 8081
