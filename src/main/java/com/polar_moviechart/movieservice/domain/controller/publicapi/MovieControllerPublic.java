@@ -3,8 +3,8 @@ package com.polar_moviechart.movieservice.domain.controller.publicapi;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.*;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/public/api/v1/movies")
