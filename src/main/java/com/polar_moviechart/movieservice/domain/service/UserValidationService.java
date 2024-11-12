@@ -18,9 +18,7 @@ public class UserValidationService {
     private String userServiceUrl;
 
     public void validateUserExists(Long userId) {
-        log.info("=== userValidationService userId = {} ===", userId);
         String requestUrl = userServiceUrl + userId;
-        log.info("=== userValidationService requestUrl = {} ===", requestUrl);
         Boolean isUserExists = restTemplate.getForEntity(requestUrl, CustomResponse.class)
                 .getBody()
                 .getIsSuccess();
