@@ -31,8 +31,8 @@ public class MovieControllerSecure {
     public ResponseEntity<CustomResponse<Double>> updateRating(HttpServletRequest request,
                                        @PathVariable(name = "code") int code,
                                        @RequestBody UpdateRatingRequest updateRatingRequest) {
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        log.info("=== MovieController userId = {} ===", userId);
+        String userIdString = request.getHeader("X-User-Id");
+        Long userId = Long.valueOf(userIdString);
         double ratingValue = movieRatingCommandService.updateRating(code, userId, updateRatingRequest);
 
         return ResponseEntity.ok(new CustomResponse<>(ratingValue));
