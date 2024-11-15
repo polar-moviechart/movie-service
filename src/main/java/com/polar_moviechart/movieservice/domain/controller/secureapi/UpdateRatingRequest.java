@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class UpdateRatingRequest {
-    private Double rating;
+    private final Double rating;
 }
