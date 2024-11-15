@@ -42,6 +42,7 @@ tasks.named('test') {
 }
 
 bootBuildImage {
+	builder = "docker.io/paketobuildpacks/builder-jammy-base"
 	imageName = "${project.name}"
 	environment = ["BP_JAVA_VERSION": "17.*"]
 
