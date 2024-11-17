@@ -13,7 +13,6 @@ jobs:
     services:
       polar-mysql:
         image: mysql:8.0
-        container_name: "polar-mysql"
         ports:
           - 3306:3306
         environment:
