@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.repository;
 
+import com.polar_moviechart.movieservice.BaseTestConfig;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.Optional;
 
 @SpringBootTest
-class MovieRepositoryTest {
+class MovieRepositoryTest extends BaseTestConfig {
     @Autowired
     private MovieRepository movieRepository;
 

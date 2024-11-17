@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service;
 
+import com.polar_moviechart.movieservice.BaseTestConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
-class MovieDailyStatsQueryServiceTest {
+class MovieDailyStatsQueryServiceTest extends BaseTestConfig {
 
     @Autowired
     private MovieDailyStatsQueryService movieDailyStatsQueryService;
