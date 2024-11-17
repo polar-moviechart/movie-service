@@ -16,5 +16,5 @@ spring:
     hibernate:
       ddl-auto: create-drop
       format_sql: true  # SQL 쿼리 포맷팅
-  flyway:
-    enabled: false
+#  flyway:
+#    enabled: false

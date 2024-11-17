@@ -31,7 +31,7 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
 
 	// 플라이웨이
-	implementation 'org.flywaydb:flyway-mysql'
+//	implementation 'org.flywaydb:flyway-mysql'
 
 	compileOnly 'org.projectlombok:lombok'
 	implementation 'com.mysql:mysql-connector-j'
