@@ -10,16 +10,6 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-22.04 # 깃허브가 제겅하는 우분투 러너에서 실행
-    services:
-      mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: testdb
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
     permissions: # 작업에 부여된 권한
       contents: read
       security-events: write # 깃허브에 보안 이벤트를 제출할 수 있는 권한
@@ -29,10 +19,16 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4 # 자바 런타임을 설치하고 설정한다.
         with:
-          arguments: --stacktrace --info
           distribution: temurin
           java-version: 17
           cache: gradle
+      - name: Set up Mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          host port: 3306
+          container port: 3306
+          mysql database: 'testdb'
+          mysql root password: password
       - name: Build, unit tests and integration tests
         # 윈도우 호환성을 해결하면서 그래들 래퍼스크립트를 실행 가능하게 만든다.
         # 코드베이스를 컴파일하고 단위 및 통합 테스트를 실행하는 그래들 빌드 작업을 수행한다.
