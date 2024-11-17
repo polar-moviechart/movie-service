@@ -11,14 +11,13 @@ jobs:
     name: Build and Test
     runs-on: ubuntu-22.04 # 깃허브가 제겅하는 우분투 러너에서 실행
     services:
-      polar-mysql:
-        image: mysql:8.0
-        ports:
-          - 3306:3306
-        environment:
-          - MYSQL_ROOT_PASSWORD=password
-          - MYSQL_USER=user
-          - MYSQL_PASSWORD=password
+      image: mysql:8.0
+      ports:
+        - 3306:3306
+      env:
+        MYSQL_ROOT_PASSWORD=password
+        MYSQL_USER=user
+        MYSQL_PASSWORD=password
 
     permissions: # 작업에 부여된 권한
       contents: read
