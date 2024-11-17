@@ -12,7 +12,6 @@ spring:
 #    url: jdbc:mysql://localhost:3306/polartest_movie
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
     show-sql: true  # SQL 쿼리 출력
     hibernate:
       ddl-auto: create-drop
