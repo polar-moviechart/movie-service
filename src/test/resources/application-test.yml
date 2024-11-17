@@ -2,7 +2,7 @@ spring:
   application:
     name: movie-service
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -11,6 +11,7 @@ spring:
 #    password: password
 #    url: jdbc:mysql://localhost:3306/polartest_movie
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     defer-datasource-initialization: true
     show-sql: true  # SQL 쿼리 출력
     hibernate:
