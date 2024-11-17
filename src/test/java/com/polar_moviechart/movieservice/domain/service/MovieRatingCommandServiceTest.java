@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service;
 
+import com.polar_moviechart.movieservice.BaseTestConfig;
 import com.polar_moviechart.movieservice.domain.controller.secureapi.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
@@ -8,10 +9,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -20,11 +19,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@ActiveProfiles("test")
-@SpringBootTest
 @Import(MovieRatingCommandService.class)
 @Transactional
-class MovieRatingCommandServiceTest {
+class MovieRatingCommandServiceTest extends BaseTestConfig {
 
     @Autowired
     private MovieRatingRepository movieRatingRepository;
@@ -43,9 +40,10 @@ class MovieRatingCommandServiceTest {
     void updateRatingTest_whenRatingDoesNotExists() {
         // given
         Long userId = 1L;
-        int movieCode = 11;
+        int movieCode = 1;
         double ratingValue = 5.5;
         UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(ratingValue);
+
         // when
         movieRatingCommandService.updateRating(movieCode, userId, updateRatingRequest);
         // then

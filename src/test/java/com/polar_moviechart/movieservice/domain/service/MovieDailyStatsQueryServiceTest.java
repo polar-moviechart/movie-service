@@ -22,7 +22,7 @@ class MovieDailyStatsQueryServiceTest extends BaseTestConfig {
     void test() {
         // given
         PageRequest pageable = PageRequest.of(0,  10);
-        LocalDate targetDate = LocalDate.of(2004, 01, 01);
+        LocalDate targetDate = LocalDate.of(2004, 1, 2);
         // when
         List<MovieDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
         // then

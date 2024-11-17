@@ -59,6 +59,16 @@ public class Movie {
     @Column(nullable = false)
     private List<MovieLeadactor> leadactors = new ArrayList<>();
 
+    @Builder
+    public Movie(int code, String title, String details, LocalDate releaseDate, Integer productionYear, String synopsys) {
+        this.code = code;
+        this.title = title;
+        this.details = details;
+        this.releaseDate = releaseDate;
+        this.productionYear = productionYear;
+        this.synopsys = synopsys;
+    }
+
     public MovieDto toDto(int ranking) {
         List<MovieDirectorDto> directors = getDirectorDtos();
         List<MovieLeadactorDto> leadactors = getLeadactorDtos();

@@ -45,11 +45,12 @@ public class MovieDailyStat {
     private Movie movie;
 
     @Builder
-    public MovieDailyStat(int ranking, int revenue, LocalDate date, int audience) {
+    public MovieDailyStat(int ranking, int revenue, LocalDate date, int audience, Movie movie) {
         this.ranking = ranking;
         this.revenue = revenue;
         this.date = date;
         this.audience = audience;
+        this.movie = movie;
     }
 
     public MovieDto toMovieDto() {
