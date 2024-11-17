@@ -16,10 +16,6 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4 # 현재 깃 저장소를 체크아웃한다.
-
-      - name: Delete Gradle cache
-        run: rm -rf ~/.gradle/caches/
-
       - name: Set up JDK
         uses: actions/setup-java@v4 # 자바 런타임을 설치하고 설정한다.
         with:
