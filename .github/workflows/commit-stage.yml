@@ -28,9 +28,9 @@ jobs:
         # 1. 로컬 데이터베이스로 테스트 진행 -> 성공 -> 깃 액션에서 실패
         # 2. 테스트컨테이너 & 플라이웨이로 테스트 진행 -> 테스트가 끝나지 않음
         # => 깃 액션에서 테스트 검증 x
-#        run: |
-#          chmod +x gradlew
-#          ./gradlew build
+        run: |
+          chmod +x gradlew
+          ./gradlew build
 
   package:
     name: Package and Publish
