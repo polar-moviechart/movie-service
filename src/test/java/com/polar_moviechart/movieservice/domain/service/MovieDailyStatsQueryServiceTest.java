@@ -16,7 +16,7 @@ class MovieDailyStatsQueryServiceTest {
     @Autowired
     private MovieDailyStatsQueryService movieDailyStatsQueryService;
 
-    @DisplayName("날짜와 페이징이 적용된 영화 정보를 불러올 수 있다..")
+    @DisplayName("날짜와 페이징이 적용된 영화 정보를 불러올 수 있다.")
     @Test
     void test() {
         // given
