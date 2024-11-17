@@ -30,7 +30,7 @@ jobs:
         # => 깃 액션에서 테스트 검증 x
         run: |
           chmod +x gradlew
-          ./gradlew build -Dspring.profiles.active=test
+          ./gradlew clean build -Dspring.profiles.active=test --debug
 
   package:
     name: Package and Publish
