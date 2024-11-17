@@ -19,6 +19,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4 # 자바 런타임을 설치하고 설정한다.
         with:
+          arguments: --stacktrace --info
           distribution: temurin
           java-version: 17
           cache: gradle
@@ -30,7 +31,7 @@ jobs:
         # => 깃 액션에서 테스트 검증 x
         run: |
           chmod +x gradlew
-          ./gradlew test
+          ./gradlew build
 
   package:
     name: Package and Publish
