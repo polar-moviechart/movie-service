@@ -30,7 +30,7 @@ jobs:
         # => 깃 액션에서 테스트 검증 x
         run: |
           chmod +x gradlew
-          ./gradlew build
+          ./gradlew test
 
   package:
     name: Package and Publish
