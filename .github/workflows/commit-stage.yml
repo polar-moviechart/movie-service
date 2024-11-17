@@ -10,6 +10,17 @@ jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-22.04 # 깃허브가 제겅하는 우분투 러너에서 실행
+    services:
+      polar-mysql:
+        image: mysql:8.0
+        container_name: "polar-mysql"
+        ports:
+          - 3306:3306
+        environment:
+          - MYSQL_ROOT_PASSWORD=password
+          - MYSQL_USER=user
+          - MYSQL_PASSWORD=password
+
     permissions: # 작업에 부여된 권한
       contents: read
       security-events: write # 깃허브에 보안 이벤트를 제출할 수 있는 권한
