@@ -34,8 +34,10 @@ dependencies {
 	// 플라이웨이
 	implementation 'org.flywaydb:flyway-mysql'
 
-	// prometheus
+	// observability
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+	runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:1.33.3"
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
