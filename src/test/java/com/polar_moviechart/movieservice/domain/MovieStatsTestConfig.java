@@ -11,8 +11,8 @@ public abstract class MovieStatsTestConfig extends MovieTestConfig {
     @Autowired
     protected MovieDailyStatsRepository dailyStatsRepository;
 
-    private static Integer statCnt;
-    private static Integer days;
+    private Integer statCnt;
+    private Integer days;
 
     protected void initStat(Integer statCnt, int days) {
         this.statCnt = statCnt;

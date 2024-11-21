@@ -11,9 +11,9 @@ public class LeadactorTestConfig extends MovieTestConfig {
     @Autowired private LeadActorRepository leadActorRepository;
     @Autowired private MovieLeadActorRepository movieLeadActorRepository;
 
-    private static Integer leadActorCnt;
+    private Integer leadActorCnt;
 
-    protected static void initLeadactorCnt(Integer leadactorCnt) {
+    protected void initLeadactorCnt(Integer leadactorCnt) {
         leadActorCnt = leadactorCnt;
     }
 

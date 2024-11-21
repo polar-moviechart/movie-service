@@ -22,9 +22,9 @@ public abstract class MovieTestConfig {
     @Autowired
     protected MovieRepository movieRepository;
 
-    private static List<Movie> movies = new ArrayList<>();
-    private static List<Integer> movieCodes;
-    private static LocalDate releaseDate;
+    private List<Movie> movies = new ArrayList<>();
+    private List<Integer> movieCodes;
+    private LocalDate releaseDate;
 
     protected void initMovies(List<Integer> movieCodes, LocalDate releaseDate) {
         this.movieCodes = movieCodes;
@@ -50,5 +50,8 @@ public abstract class MovieTestConfig {
 
     protected List<Movie> getMovies() {
         return new ArrayList<>(this.movies);
+    }
+    protected Integer getMovieCnt() {
+        return this.getMovies().size();
     }
 }
