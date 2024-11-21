@@ -1,11 +1,10 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
-import com.polar_moviechart.movieservice.domain.service.MovieLeadactorDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieLeadactorDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 

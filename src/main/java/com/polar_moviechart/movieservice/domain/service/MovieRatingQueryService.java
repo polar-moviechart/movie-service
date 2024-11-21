@@ -2,6 +2,8 @@ package com.polar_moviechart.movieservice.domain.service;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.exception.ErrorInfo;
+import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,6 @@ public class MovieRatingQueryService {
         userValidationService.validateUserExists(userId);
         return movieRatingRepository.findByCodeAndUserId(code, userId)
                 .map(MovieRating::getRating)
-                .orElse(0.0);
+                .orElseThrow(() -> new MovieBusinessException(ErrorInfo.RATING_NOT_EXISTS));
     }
 }

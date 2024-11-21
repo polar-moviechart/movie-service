@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service;
 
-import com.polar_moviechart.movieservice.BaseTestConfig;
+import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.controller.secureapi.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
@@ -19,9 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Import(MovieRatingCommandService.class)
-@Transactional
-class MovieRatingCommandServiceTest extends BaseTestConfig {
+class MovieRatingCommandServiceTest extends MovieTestConfig {
 
     @Autowired
     private MovieRatingRepository movieRatingRepository;
@@ -35,7 +33,7 @@ class MovieRatingCommandServiceTest extends BaseTestConfig {
         BDDMockito.willDoNothing().given(userValidationService).validateUserExists(1L);
     }
 
-    @DisplayName("")
+    @DisplayName("기존 평점이 없을 때 영화 평점을 매길 수 있다.")
     @Test
     void updateRatingTest_whenRatingDoesNotExists() {
         // given
@@ -52,22 +50,25 @@ class MovieRatingCommandServiceTest extends BaseTestConfig {
         assertEquals(ratingValue, savedRating.get().getRating());
     }
 
-    @DisplayName("")
+    @DisplayName("기존 평점이 있을 때 새로운 평점을 매기면 기존의 평점이 업데이트 된다.")
     @Test
     void updateRatingTest_whenRatingExists() {
         // given
         Long userId = 1L;
         int movieCode = 11;
         double existingRatingValue = 5.5;
-        double newRatingValue = 8.0;
+
         MovieRating existingMovieRating = new MovieRating(userId, movieCode, existingRatingValue, LocalDateTime.now(), LocalDateTime.now());
         movieRatingRepository.save(existingMovieRating);
-        // when
+
+        double newRatingValue = 8.0;
         UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(newRatingValue);
+        // when
         movieRatingCommandService.updateRating(movieCode, userId, updateRatingRequest);
+        MovieRating updatedMovieRating = movieRatingRepository
+                .findByCodeAndUserId(movieCode, userId).get();
         // then
-        Optional<MovieRating> updatedMovieRating = movieRatingRepository.findByCodeAndUserId(movieCode, userId);
-        assertTrue(updatedMovieRating.isPresent());
-        assertEquals(newRatingValue, updatedMovieRating.get().getRating());
+        assertEquals(existingMovieRating.getId(), updatedMovieRating.getId());
+        assertEquals(newRatingValue, updatedMovieRating.getRating());
     }
 }
