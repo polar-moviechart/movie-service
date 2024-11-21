@@ -1,15 +1,14 @@
 package com.polar_moviechart.movieservice.domain.service;
 
 import com.polar_moviechart.movieservice.domain.MovieStatsTestConfig;
-import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
@@ -20,29 +19,38 @@ class MovieDailyStatsQueryServiceTest extends MovieStatsTestConfig {
     @Autowired
     private MovieDailyStatsQueryService movieDailyStatsQueryService;
 
+    private final static List<Integer> movieCodes = List.of(1);
+    private final static LocalDate releaseDate = LocalDate.of(2004, 1, 1);
+    private final static int statCnt = 1;
+    private final static int days = 2;
+    @BeforeEach
+    void setUp() {
+        initMovies(movieCodes, releaseDate);
+        initStat(statCnt, days);
+    }
+
     @DisplayName("날짜와 페이징이 적용된 영화 정보를 불러올 수 있다.")
     @Test
     void getMovieDailyRankInfo() {
         // given
-        PageRequest pageable = PageRequest.of(0,  10);
-        LocalDate targetDate = LocalDate.of(2004, 1, 1);
+        PageRequest pageable = PageRequest.of(0,  statCnt);
         // when
-        List<MovieDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
+        List<MovieDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(releaseDate, pageable);
         // then
-        Assertions.assertThat(movieDailyRankInfo).isNotEmpty();
+        Assertions.assertThat(movieDailyRankInfo.size()).isEqualTo(statCnt);
     }
 
     @DisplayName("영화 코드로 랭킹 정보를 불러올 수 있다.")
     @Test
     void getMovieDailyStats() {
         // given
-        int movieCode = 1;
-        PageRequest pageRequest = PageRequest.of(0, 10);
+        PageRequest pageRequest = PageRequest.of(0, statCnt);
         StatType ranking = StatType.RANKING;
         // when
-        MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService.getMovieDailyStats(movieCode, pageRequest, ranking);
+        MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService
+                .getMovieDailyStats(movieCodes.get(0), pageRequest, ranking);
         // then
-        Assertions.assertThat(movieDailyStats.getCode()).isEqualTo(movieCode);
-        Assertions.assertThat(movieDailyStats.getStatDtos()).isNotEmpty();
+        Assertions.assertThat(movieDailyStats.getCode()).isEqualTo(movieCodes.get(0));
+        Assertions.assertThat(movieDailyStats.getStatDtos().size()).isEqualTo(statCnt);
     }
 }

@@ -3,29 +3,38 @@ package com.polar_moviechart.movieservice.domain;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
 import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsRepository;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 public abstract class MovieStatsTestConfig extends MovieTestConfig {
 
     @Autowired
     protected MovieDailyStatsRepository dailyStatsRepository;
 
-    @BeforeEach
-    void setUpMovieStats() {
-        List<Movie> movies = movieRepository.findAll();
-        for (Movie movie : movies) {
-            for (int i = 0; i < 10; i++) {
-                dailyStatsRepository.save(
-                        MovieDailyStat.builder()
-                                .ranking(i + 1)
-                                .revenue((i + 1) * 100)
-                                .date(movie.getReleaseDate().plusDays(i))
-                                .audience((i + 1) * 100)
-                                .movie(movie)
-                                .build());
+    private Integer statCnt;
+    private Integer days;
+
+    protected void initStat(Integer statCnt, int days) {
+        this.statCnt = statCnt;
+        this.days = days;
+        setUpMovieStats();
+    }
+
+    private void setUpMovieStats() {
+        for (Movie movie : getMovies()) {
+
+            for (int day = 0; day < days; day++) {
+
+                for (int stat = 1; stat <= statCnt; stat++) {
+                    dailyStatsRepository.save(
+                            MovieDailyStat.builder()
+                                    .ranking(stat)
+                                    .revenue(stat * 100)
+                                    .date(movie.getReleaseDate().plusDays(day))
+                                    .audience(stat * 100)
+                                    .movie(movie)
+                                    .build());
+                }
             }
         }
     }

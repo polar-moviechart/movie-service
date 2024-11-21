@@ -2,6 +2,7 @@ package com.polar_moviechart.movieservice.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -37,6 +38,7 @@ public class MovieRating {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Builder
     public MovieRating(Long userId, Integer movieCode, Double rating) {
         this.userId = userId;
         this.code = movieCode;
