@@ -1,9 +1,9 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
-import com.polar_moviechart.movieservice.domain.service.MovieDetailsDto;
-import com.polar_moviechart.movieservice.domain.service.MovieDirectorDto;
-import com.polar_moviechart.movieservice.domain.service.MovieDto;
-import com.polar_moviechart.movieservice.domain.service.MovieLeadactorDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDirectorDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieLeadactorDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

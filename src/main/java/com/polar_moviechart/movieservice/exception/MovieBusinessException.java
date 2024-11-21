@@ -21,4 +21,8 @@ public class MovieBusinessException extends RuntimeException {
     public MovieBusinessException(Throwable cause) {
         super(msg, cause);
     }
+
+    public String getCode() {
+        return errorInfo.getCode();
+    }
 }

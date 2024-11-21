@@ -2,6 +2,9 @@ package com.polar_moviechart.movieservice.domain.controller.publicapi;
 
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.*;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
