@@ -28,4 +28,8 @@ public class CustomResponse<T> {
     public void setCode(String errorCode) {
         this.code = errorCode;
     }
+
+    public boolean isSuccess() {
+        return this.isSuccess;
+    }
 }
