@@ -14,15 +14,13 @@ public abstract class MovieStatsTestConfig extends MovieTestConfig {
     private static Integer statCnt;
     private static Integer days;
 
-    protected static void initStat(Integer statCnt, int days) {
-        statCnt = statCnt;
-        days = days;
+    protected void initStat(Integer statCnt, int days) {
+        this.statCnt = statCnt;
+        this.days = days;
+        setUpMovieStats();
     }
 
-
-
-    @BeforeAll
-    void setUpMovieStats() {
+    private void setUpMovieStats() {
         for (Movie movie : getMovies()) {
 
             for (int day = 0; day < days; day++) {

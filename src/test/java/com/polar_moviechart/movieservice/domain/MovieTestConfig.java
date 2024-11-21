@@ -24,16 +24,17 @@ public abstract class MovieTestConfig {
 
     private static List<Movie> movies = new ArrayList<>();
     private static List<Integer> movieCodes;
+록    private static LocalDate releaseDate;
 
-    protected static void initMovieCodes(List<Integer> codes) {
-        movieCodes = codes;
+    protected void initMovies(List<Integer> movieCodes, LocalDate releaseDate) {
+        this.movieCodes = movieCodes;
+        this.releaseDate = releaseDate;
+        setUpMovies();
     }
 
-    @BeforeAll
-    void setUpMovies() {
+    private void setUpMovies() {
         int year = 2004;
         for (Integer movieCode : movieCodes) {
-            LocalDate releaseDate = LocalDate.of(year, 1, 1);
             Movie movie = movieRepository.save(
                     Movie.builder()
                             .code(movieCode)
