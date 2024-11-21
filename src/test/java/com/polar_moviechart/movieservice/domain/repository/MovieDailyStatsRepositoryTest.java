@@ -3,7 +3,7 @@ package com.polar_moviechart.movieservice.domain.repository;
 import com.polar_moviechart.movieservice.domain.MovieStatsTestConfig;
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ class MovieDailyStatsRepositoryTest extends MovieStatsTestConfig {
     private final static int statCnt = 1;
     private final static int days = 2;
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
         initStat(statCnt, days);

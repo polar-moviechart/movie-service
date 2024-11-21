@@ -3,7 +3,7 @@ package com.polar_moviechart.movieservice.domain.repository;
 import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 class MovieRepositoryTest extends MovieTestConfig {
     private static final List<Integer> movieCodes = List.of(1);
     private static final LocalDate releaseDate = LocalDate.of(2004, 1, 1);
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
     }

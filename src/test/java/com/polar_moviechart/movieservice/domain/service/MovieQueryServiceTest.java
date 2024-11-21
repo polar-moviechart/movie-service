@@ -4,7 +4,7 @@ import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class MovieQueryServiceTest extends MovieTestConfig {
     private final static List<Integer> movieCodes = List.of(1);
     private final static LocalDate releaseDate = LocalDate.of(2004, 1, 1);
 
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
     }

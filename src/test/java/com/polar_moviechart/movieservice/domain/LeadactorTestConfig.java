@@ -3,7 +3,7 @@ package com.polar_moviechart.movieservice.domain;
 import com.polar_moviechart.movieservice.domain.entity.*;
 import com.polar_moviechart.movieservice.domain.repository.LeadActorRepository;
 import com.polar_moviechart.movieservice.domain.repository.MovieLeadActorRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class LeadactorTestConfig extends MovieTestConfig {
@@ -17,7 +17,7 @@ public class LeadactorTestConfig extends MovieTestConfig {
         leadActorCnt = leadactorCnt;
     }
 
-    @BeforeAll
+    @BeforeEach
     void setUpLeadactors() {
         for (Movie movie : getMovies()) {
             int movieCode = movie.getCode();

@@ -5,7 +5,7 @@ import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ class MovieDailyStatsQueryServiceTest extends MovieStatsTestConfig {
     private final static LocalDate releaseDate = LocalDate.of(2004, 1, 1);
     private final static int statCnt = 1;
     private final static int days = 2;
-    @BeforeAll
+    @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
         initStat(statCnt, days);
