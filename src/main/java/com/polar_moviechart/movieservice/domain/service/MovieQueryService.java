@@ -2,6 +2,7 @@ package com.polar_moviechart.movieservice.domain.service;
 
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.repository.MovieRepository;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.exception.ErrorInfo;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,11 @@ public class MovieQueryService {
             throw new MovieBusinessException(ErrorInfo.MOVIE_DOESNT_EXISTS);
         }
     }
-    public boolean isExists(int code) {
+    private boolean isExists(int code) {
         return movieRepository.existsByCode(code);
     }
     private Movie fetchMovie(int code) {
         return movieRepository.findByCode(code)
-                .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다."));
+                .orElseThrow(() -> new MovieBusinessException(ErrorInfo.MOVIE_DOESNT_EXISTS));
     }
 }
