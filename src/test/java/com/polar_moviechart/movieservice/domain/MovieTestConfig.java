@@ -16,7 +16,7 @@ import java.util.List;
 @SpringBootTest
 @Transactional
 @ActiveProfiles("test")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 public abstract class MovieTestConfig {
 
     @Autowired
