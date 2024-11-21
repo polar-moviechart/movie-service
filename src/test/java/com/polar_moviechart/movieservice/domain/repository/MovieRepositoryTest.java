@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.repository;
 
-import com.polar_moviechart.movieservice.BaseTestConfig;
+import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,17 +10,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
-@SpringBootTest
-class MovieRepositoryTest extends BaseTestConfig {
-    @Autowired
-    private MovieRepository movieRepository;
+class MovieRepositoryTest extends MovieTestConfig {
 
-    @DisplayName("리파지토리 및 데이터베이스 연결 테스트")
+    @DisplayName("findByCode() 쿼리 테스트")
     @Test
-    void test() {
-        // given // when
-        Optional<Movie> optionalMovie = movieRepository.findById(1L);
+    void findByCode() {
+        // given
+        int movieCode = 1;
+        // when
+        Optional<Movie> optionalMovie = movieRepository.findByCode(movieCode);
         // then
         Assertions.assertThat(optionalMovie).isPresent();
+    }
+
+    @DisplayName("existsByCode() 쿼리 테스트")
+    @Test
+    void test() {
+        // given
+        int movieCode = 1;
+        // whene
+        boolean isExists = movieRepository.existsByCode(movieCode);
+        // then
+        Assertions.assertThat(isExists).isTrue();
     }
 }
