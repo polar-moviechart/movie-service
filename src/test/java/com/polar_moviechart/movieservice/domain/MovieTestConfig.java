@@ -24,7 +24,7 @@ public abstract class MovieTestConfig {
 
     private static List<Movie> movies = new ArrayList<>();
     private static List<Integer> movieCodes;
-록    private static LocalDate releaseDate;
+    private static LocalDate releaseDate;
 
     protected void initMovies(List<Integer> movieCodes, LocalDate releaseDate) {
         this.movieCodes = movieCodes;
