@@ -1,7 +1,8 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
 import com.polar_moviechart.movieservice.domain.enums.StatType;
-import com.polar_moviechart.movieservice.domain.service.*;
+import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
+import com.polar_moviechart.movieservice.domain.service.dtos.StatDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

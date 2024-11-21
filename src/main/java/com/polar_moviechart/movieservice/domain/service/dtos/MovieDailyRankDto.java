@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.service;
+package com.polar_moviechart.movieservice.domain.service.dtos;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
