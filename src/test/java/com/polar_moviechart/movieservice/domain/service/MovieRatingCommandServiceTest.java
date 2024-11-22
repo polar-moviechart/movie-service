@@ -37,7 +37,7 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
     @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
-        initStat(ratingValues, userIds);
+        initRating(ratingValues, userIds);
         for (Long userId : userIds) {
             BDDMockito.willDoNothing().given(userValidationService).validateUserExists(userId);
         }
