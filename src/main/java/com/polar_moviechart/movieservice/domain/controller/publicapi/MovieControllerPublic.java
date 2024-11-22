@@ -35,7 +35,7 @@ public class MovieControllerPublic {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
                 .orElseGet(movieDailyStatsQueryService::findLatestDate);
         PageRequest pageable = PageRequest.of(page, size);
-        List<MovieDto> movieDtos = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDateReq, pageable);
+        List<MovieDto> movieDtos = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
 
         return ResponseEntity.ok(new CustomResponse<>(movieDtos));
     }

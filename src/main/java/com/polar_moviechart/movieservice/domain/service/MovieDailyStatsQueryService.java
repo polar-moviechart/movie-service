@@ -41,7 +41,7 @@ public class MovieDailyStatsQueryService {
     }
 
     public LocalDate findLatestDate() {
-        return null;
-//        return movieDailyStatsRepository.findFirstByOrderByDate();
+        return movieDailyStatsRepository
+                .findFirstByOrderByDateDesc().getDate();
     }
 }
