@@ -1,6 +1,7 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,4 +31,10 @@ public class MovieLeadactor {
     @ManyToOne
     @JoinColumn(name = "leadactor_code", referencedColumnName = "code", nullable = false)
     private Leadactor leadactor;
+
+    @Builder
+    public MovieLeadactor(Movie movie, Leadactor leadactor) {
+        this.movie = movie;
+        this.leadactor = leadactor;
+    }
 }

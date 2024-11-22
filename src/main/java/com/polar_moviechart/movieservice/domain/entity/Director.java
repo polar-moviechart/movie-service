@@ -40,7 +40,6 @@ public class Director {
     public Director(int code, String name) {
         this.code = code;
         this.name = name;
-        this.movies = new ArrayList<>(); // 리스트 초기화
     }
 
     public MovieDirectorDto toDto() {

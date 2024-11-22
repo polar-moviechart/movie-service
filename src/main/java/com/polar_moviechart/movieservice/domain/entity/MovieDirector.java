@@ -1,6 +1,7 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,4 +31,10 @@ public class MovieDirector {
     @ManyToOne
     @JoinColumn(name = "director_code", referencedColumnName = "code", nullable = false)
     private Director director;
+
+    @Builder
+    public MovieDirector(Movie movie, Director director) {
+        this.movie = movie;
+        this.director = director;
+    }
 }
