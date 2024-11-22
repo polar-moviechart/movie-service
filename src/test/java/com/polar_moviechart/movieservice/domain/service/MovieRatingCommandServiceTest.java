@@ -19,7 +19,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
 class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
 
     @Autowired
@@ -37,7 +36,7 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
     @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
-        initStat(ratingValues, userIds);
+        initRating(ratingValues, userIds);
         for (Long userId : userIds) {
             BDDMockito.willDoNothing().given(userValidationService).validateUserExists(userId);
         }

@@ -15,7 +15,7 @@ public abstract class MovieRatingTestConfig extends MovieTestConfig {
     private List<Long> userIds;
     private List<Double> ratingValues;
 
-    protected void initStat(List<Double> ratingValues, List<Long> userIds) {
+    protected void initRating(List<Double> ratingValues, List<Long> userIds) {
         this.ratingValues = ratingValues;
         this.userIds = userIds;
         setUpMovieRatings();
