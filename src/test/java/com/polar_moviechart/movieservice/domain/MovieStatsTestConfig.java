@@ -22,7 +22,7 @@ public abstract class MovieStatsTestConfig extends MovieTestConfig {
     private void setUpMovieStats() {
         for (Movie movie : getMovies()) {
 
-            for (int day = 0; day <= days; day++) {
+            for (int day = 0; day < days; day++) {
                 dailyStatsRepository.save(
                         MovieDailyStat.builder()
                                 .ranking(stat)

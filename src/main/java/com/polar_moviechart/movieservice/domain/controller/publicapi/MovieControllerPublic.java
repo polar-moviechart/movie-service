@@ -55,4 +55,11 @@ public class MovieControllerPublic {
 
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
     }
+
+    @GetMapping("/dates")
+    public ResponseEntity<CustomResponse<List<LocalDate>>> getDates() {
+        List<LocalDate> statDates = movieDailyStatsQueryService.getDates();
+
+        return ResponseEntity.ok(new CustomResponse<>(statDates));
+    }
 }
