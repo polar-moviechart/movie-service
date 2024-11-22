@@ -57,6 +57,6 @@ class MovieDailyStatsRepositoryTest extends MovieStatsTestConfig {
         // given // when
         MovieDailyStat movieDailyStat = dailyStatsRepository.findFirstByOrderByDateDesc();
         // then
-        Assertions.assertThat(movieDailyStat.getDate()).isEqualTo(releaseDate.plusDays(days));
+        Assertions.assertThat(movieDailyStat.getDate()).isEqualTo(releaseDate.plusDays(days-1));
     }
 }
