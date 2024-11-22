@@ -21,19 +21,20 @@ class MovieDailyStatsQueryServiceTest extends MovieStatsTestConfig {
 
     private final static List<Integer> movieCodes = List.of(1);
     private final static LocalDate releaseDate = LocalDate.of(2004, 1, 1);
-    private final static int statCnt = 1;
+    private final static int stat = 1;
     private final static int days = 2;
     @BeforeEach
     void setUp() {
         initMovies(movieCodes, releaseDate);
-        initStat(statCnt, days);
+        initStat(stat, days);
     }
 
     @DisplayName("날짜와 페이징이 적용된 영화 정보를 불러올 수 있다.")
     @Test
     void getMovieDailyRankInfo() {
         // given
-        PageRequest pageable = PageRequest.of(0,  statCnt);
+        int statCnt = movieCodes.size();
+        PageRequest pageable = PageRequest.of(0, statCnt);
         // when
         List<MovieDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(releaseDate, pageable);
         // then
@@ -44,6 +45,7 @@ class MovieDailyStatsQueryServiceTest extends MovieStatsTestConfig {
     @Test
     void getMovieDailyStats() {
         // given
+        int statCnt = movieCodes.size();
         PageRequest pageRequest = PageRequest.of(0, statCnt);
         StatType ranking = StatType.RANKING;
         // when
