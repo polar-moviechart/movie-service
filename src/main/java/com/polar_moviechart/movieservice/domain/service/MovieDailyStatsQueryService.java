@@ -39,4 +39,9 @@ public class MovieDailyStatsQueryService {
                 .toList();
         return new MovieDailyStatsResponse(code, statDtos);
     }
+
+    public LocalDate findLatestDate() {
+        return null;
+//        return movieDailyStatsRepository.findFirstByOrderByDate();
+    }
 }
