@@ -6,6 +6,7 @@ import com.polar_moviechart.movieservice.domain.service.dtos.StatDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,6 +14,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
 @Table(name = "movie_daily_stats")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

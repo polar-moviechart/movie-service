@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -26,10 +27,13 @@ public class MovieControllerPublic {
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
-            @RequestParam(defaultValue = "#{T(java.time.LocalDate).now().toString()}") LocalDate targetDate,
+            @RequestParam(required = false) LocalDate targetDateReq,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
+
+        LocalDate targetDate = Optional.ofNullable(targetDateReq)
+                .orElseGet(movieDailyStatsQueryService::findLatestDate);
         PageRequest pageable = PageRequest.of(page, size);
         List<MovieDto> movieDtos = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
 

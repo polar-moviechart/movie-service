@@ -14,4 +14,6 @@ public interface MovieDailyStatsRepository extends JpaRepository<MovieDailyStat,
     Page<MovieDailyStat> findAllByDate(LocalDate targetDate, Pageable pageable);
 
     List<MovieDailyStat> findByMovieCodeOrderByDateDesc(int code, Pageable pageable);
+
+    MovieDailyStat findFirstByOrderByDateDesc();
 }
