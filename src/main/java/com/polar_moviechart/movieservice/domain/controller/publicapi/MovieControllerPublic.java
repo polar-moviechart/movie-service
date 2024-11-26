@@ -1,14 +1,14 @@
 package com.polar_moviechart.movieservice.domain.controller.publicapi;
 
+import com.polar_moviechart.movieservice.domain.dto.ReviewResponse;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
-import com.polar_moviechart.movieservice.domain.service.*;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieService;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,10 +20,8 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/public/api/v1/movies")
-public class MovieControllerPublic {
-
-    private final MovieDailyStatsQueryService movieDailyStatsQueryService;
-    private final MovieQueryService movieQueryService;
+public class MovieControllerPublic extends MovieDataProxyController {
+    private final MovieService movieService;
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
@@ -31,18 +29,13 @@ public class MovieControllerPublic {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-
-        LocalDate targetDate = Optional.ofNullable(targetDateReq)
-                .orElseGet(movieDailyStatsQueryService::findLatestDate);
-        PageRequest pageable = PageRequest.of(page, size);
-        List<MovieDto> movieDtos = movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
-
+        List<MovieDto> movieDtos = movieService.getMovies(targetDateReq, page, size);
         return ResponseEntity.ok(new CustomResponse<>(movieDtos));
     }
 
     @GetMapping("/{code}")
     public ResponseEntity<CustomResponse<MovieDetailsDto>> getMovie(@PathVariable(name = "code") int code) {
-        MovieDetailsDto movieDetailsDto = movieQueryService.getMovie(code);
+        MovieDetailsDto movieDetailsDto = movieService.getMovie(code);
         return ResponseEntity.ok(new CustomResponse<>(movieDetailsDto));
     }
 
@@ -50,16 +43,28 @@ public class MovieControllerPublic {
     public ResponseEntity<CustomResponse<MovieDailyStatsResponse>> getMovieStats(@PathVariable(name = "code") int code,
                                                                                  @RequestParam(name = "limit") int limit,
                                                                                  @RequestParam(name = "type") StatType statType) {
-        PageRequest pageable = PageRequest.of(0, limit);
-        MovieDailyStatsResponse movieDailyStats = movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statType);
-
+        MovieDailyStatsResponse movieDailyStats = movieService.getMovieStats(code, limit, statType);
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
     }
 
     @GetMapping("/dates")
     public ResponseEntity<CustomResponse<List<LocalDate>>> getDates() {
-        List<LocalDate> statDates = movieDailyStatsQueryService.getDates();
-
+        List<LocalDate> statDates = movieService.getStatDates();
         return ResponseEntity.ok(new CustomResponse<>(statDates));
+    }
+
+    @Override
+    public ResponseEntity<CustomResponse<Integer>> getLikes(int code) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<CustomResponse<List<ReviewResponse>>> getReviews(int code) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<CustomResponse<Double>> getRatings(int code) {
+        return null;
     }
 }
