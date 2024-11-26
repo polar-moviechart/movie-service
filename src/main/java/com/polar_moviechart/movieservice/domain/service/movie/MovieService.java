@@ -21,7 +21,6 @@ public class MovieService {
 
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieQueryService movieQueryService;
-    private final UserServiceProxy userServiceProxy;
 
     public List<MovieDto> getMovies(LocalDate targetDateReq, int page, int size) {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
@@ -43,10 +42,5 @@ public class MovieService {
 
     public List<LocalDate> getStatDates() {
         return movieDailyStatsQueryService.getDates();
-    }
-
-    public Integer getLikes(int code) {
-        userServiceProxy.getMovieLikes(code);
-        return null;
     }
 }
