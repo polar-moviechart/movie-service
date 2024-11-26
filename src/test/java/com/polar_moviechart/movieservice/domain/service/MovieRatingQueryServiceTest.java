@@ -3,6 +3,7 @@ package com.polar_moviechart.movieservice.domain.service;
 import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
 import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.exception.ErrorCode;
 import com.polar_moviechart.movieservice.exception.ErrorInfo;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import org.junit.jupiter.api.BeforeEach;
@@ -63,14 +64,14 @@ class MovieRatingQueryServiceTest {
         MovieBusinessException exception = assertThrows(MovieBusinessException.class,
                 () -> ratingQueryService.getUserMovieRating(movieCode, userId)
         );
-        assertEquals(ErrorInfo.RATING_NOT_EXISTS.getCode(), exception.getCode());
+        assertEquals(ErrorCode.RATING_NOT_EXISTS.getCode(), exception.getCode());
     }
 
     @DisplayName("유저가 존재하지 않으면 예외가 발생한다.")
     @Test
     void validateUserExists_userNotExists() {
         // given
-        BDDMockito.doThrow(new MovieBusinessException(ErrorInfo.USER_NOT_EXISTS))
+        BDDMockito.doThrow(new MovieBusinessException(ErrorCode.USER_NOT_EXISTS))
                         .when(userValidationService)
                         .validateUserExists(userId);
         // when then
