@@ -1,9 +1,5 @@
 package com.polar_moviechart.movieservice.domain.entity;
 
-import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
-import com.polar_moviechart.movieservice.domain.service.dtos.MovieDirectorDto;
-import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
-import com.polar_moviechart.movieservice.domain.service.dtos.MovieLeadactorDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -42,6 +38,12 @@ public class Movie {
     @Column(nullable = false)
     private String synopsys;
 
+    @Column
+    private Integer likeCnt;
+
+    @Column
+    private Double rating;
+
     @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
     private List<MovieDailyStat> stats = new ArrayList<>();
 
@@ -69,51 +71,7 @@ public class Movie {
         this.synopsys = synopsys;
     }
 
-    public MovieDto toDto(int ranking) {
-        List<MovieDirectorDto> directors = getDirectorDtos();
-        List<MovieLeadactorDto> leadactors = getLeadactorDtos();
-
-        return new MovieDto(
-                code,
-                ranking,
-                title,
-                List.of(),
-                details,
-                releaseDate,
-                productionYear,
-                directors,
-                leadactors
-        );
-    }
-
-    public MovieDetailsDto toDto() {
-        List<MovieDirectorDto> directors = getDirectorDtos();
-        List<MovieLeadactorDto> leadactors = getLeadactorDtos();
-
-        return new MovieDetailsDto(
-                code,
-                title,
-                List.of(),
-                details,
-                releaseDate,
-                productionYear,
-                synopsys,
-                directors,
-                leadactors
-        );
-    }
-
-    private List<MovieLeadactorDto> getLeadactorDtos() {
-        List<MovieLeadactorDto> leadactors = this.leadactors.stream()
-                .map(leadactor -> leadactor.getLeadactor().toDto())
-                .toList();
-        return leadactors;
-    }
-
-    private List<MovieDirectorDto> getDirectorDtos() {
-        List<MovieDirectorDto> directors = this.directors.stream()
-                .map(director -> director.getDirector().toDto())
-                .toList();
-        return directors;
+    public void addLikeCount(Integer value) {
+        this.likeCnt += value;
     }
 }
