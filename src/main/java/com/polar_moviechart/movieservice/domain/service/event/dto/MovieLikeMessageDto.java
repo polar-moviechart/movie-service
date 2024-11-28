@@ -17,4 +17,14 @@ public class MovieLikeMessageDto implements MessageDto {
     public MessageType getType() {
         return MessageType.LIKE;
     }
+
+    @Override
+    public Integer getCode() {
+        return movieCode;
+    }
+
+    @Override
+    public Integer getValue() {
+        return likeCnt;
+    }
 }

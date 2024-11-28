@@ -57,7 +57,7 @@ public class MovieQueryService {
     }
 
     public MovieDetailsDto getMovie(int code) {
-        return fetchMovie(code).toDto();
+        return MovieDetailsDto.from(fetchMovie(code));
     }
 
     private boolean isExists(int code) {

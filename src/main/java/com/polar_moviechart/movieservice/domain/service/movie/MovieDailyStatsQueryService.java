@@ -28,7 +28,7 @@ public class MovieDailyStatsQueryService {
     public List<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
         Page<MovieDailyStat> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
         return dailyStats.getContent().stream()
-                .map(stats -> stats.toMovieDto())
+                .map(stats -> MovieDto.from(stats.getMovie(), stats.getRanking()))
                 .toList();
     }
 
@@ -37,7 +37,7 @@ public class MovieDailyStatsQueryService {
                 .findByMovieCodeOrderByDateDesc(code, pageable);
 
         List<StatDto> statDtos = dailyStats.stream()
-                .map(stat -> stat.toDto(statType))
+                .map(stat -> StatDto.from(stat, statType))
                 .toList();
         return new MovieDailyStatsResponse(code, statDtos);
     }
