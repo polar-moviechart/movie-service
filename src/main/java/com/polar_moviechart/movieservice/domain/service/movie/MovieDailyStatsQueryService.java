@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.service;
+package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
 import com.polar_moviechart.movieservice.domain.enums.StatType;

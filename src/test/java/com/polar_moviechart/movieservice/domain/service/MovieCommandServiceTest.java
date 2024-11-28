@@ -3,11 +3,11 @@ package com.polar_moviechart.movieservice.domain.service;
 import com.polar_moviechart.movieservice.domain.MovieRatingTestConfig;
 import com.polar_moviechart.movieservice.domain.controller.secureapi.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
-import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieCommandService;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieRatingQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,12 +19,12 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
+class MovieCommandServiceTest extends MovieRatingTestConfig {
 
     @Autowired
-    private MovieRatingRepository movieRatingRepository;
+    private MovieRatingQueryService movieRatingQueryService;
     @Autowired
-    private MovieRatingCommandService movieRatingCommandService;
+    private MovieCommandService movieCommandService;
     @MockBean
     private UserValidationService userValidationService;
 
@@ -52,7 +52,7 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
         UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(ratingValue);
 
         // when
-        movieRatingCommandService.updateRating(movieCode, userId, updateRatingRequest);
+        movieCommandService.updateRating(movieCode, userId, updateRatingRequest);
         // then
         Optional<MovieRating> savedRating = movieRatingRepository.findByCodeAndUserId(movieCode, userId);
         assertTrue(savedRating.isPresent());
@@ -72,7 +72,7 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
         double newRatingValue = 2.0;
         UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(newRatingValue);
         // when
-        movieRatingCommandService.updateRating(existingMovieCode, userId, updateRatingRequest);
+        movieCommandService.updateRating(existingMovieCode, userId, updateRatingRequest);
         MovieRating updatedMovieRating = movieRatingRepository
                 .findByCodeAndUserId(existingMovieCode, userId).get();
         // then
