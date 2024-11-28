@@ -13,6 +13,6 @@ public class GlobalControllerAdvice {
     public ResponseEntity<CustomResponse<Object>> handleRuntimeException(RuntimeException e) {
         e.printStackTrace();
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new CustomResponse<>(ErrorInfo.DEFAULT_ERROR));
+                .body(new CustomResponse<>(ErrorCode.DEFAULT_ERROR));
     }
 }

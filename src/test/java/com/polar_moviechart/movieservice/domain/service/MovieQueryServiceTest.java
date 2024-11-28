@@ -2,6 +2,7 @@ package com.polar_moviechart.movieservice.domain.service;
 
 import com.polar_moviechart.movieservice.domain.MovieTestConfig;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

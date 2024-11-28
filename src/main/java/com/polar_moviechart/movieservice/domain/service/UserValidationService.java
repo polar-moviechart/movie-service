@@ -1,6 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service;
 
-import com.polar_moviechart.movieservice.exception.ErrorInfo;
+import com.polar_moviechart.movieservice.exception.ErrorCode;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ public class UserValidationService {
                 .getBody()
                 .getIsSuccess();
         if (!isUserExists) {
-            throw new MovieBusinessException(ErrorInfo.USER_NOT_EXISTS);
+            throw new MovieBusinessException(ErrorCode.USER_NOT_EXISTS);
         }
     }
 }

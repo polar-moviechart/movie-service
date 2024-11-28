@@ -4,6 +4,7 @@ import com.polar_moviechart.movieservice.domain.MovieStatsTestConfig;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieDailyStatsQueryService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
