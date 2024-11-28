@@ -1,7 +1,7 @@
 package com.polar_moviechart.movieservice.domain.controller.secureapi;
 
-import com.polar_moviechart.movieservice.domain.service.MovieRatingCommandService;
-import com.polar_moviechart.movieservice.domain.service.MovieRatingQueryService;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieCommandService;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/secure/api/v1/movies")
 public class MovieControllerSecure {
-
-    private final MovieRatingCommandService movieRatingCommandService;
-    private final MovieRatingQueryService movieRatingQueryService;
+    private final MovieCommandService movieCommandService;
+    private final MovieQueryService movieQueryService;
 
     @GetMapping("/{code}/rating")
     public ResponseEntity<CustomResponse<Double>> getMovieRating(HttpServletRequest request,
                                        @PathVariable(name = "code") int code) {
         Long userId = (Long) request.getAttribute("userId");
-        Double movieRating = movieRatingQueryService.getUserMovieRating(code, userId);
+        Double movieRating = movieQueryService.getUserMovieRating(code, userId);
 
         return ResponseEntity.ok(new CustomResponse<>(movieRating));
     }
@@ -33,7 +32,7 @@ public class MovieControllerSecure {
                                        @RequestBody UpdateRatingRequest updateRatingRequest) {
         String userIdString = request.getHeader("X-User-Id");
         Long userId = Long.valueOf(userIdString);
-        double ratingValue = movieRatingCommandService.updateRating(code, userId, updateRatingRequest);
+        double ratingValue = movieCommandService.updateRating(code, userId, updateRatingRequest);
 
         return ResponseEntity.ok(new CustomResponse<>(ratingValue));
     }
