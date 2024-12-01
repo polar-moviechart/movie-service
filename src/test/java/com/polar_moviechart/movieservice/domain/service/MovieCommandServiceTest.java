@@ -8,9 +8,7 @@ import com.polar_moviechart.movieservice.domain.service.movie.MovieRatingQuerySe
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,8 +23,6 @@ class MovieCommandServiceTest extends MovieRatingTestConfig {
     private MovieRatingQueryService movieRatingQueryService;
     @Autowired
     private MovieCommandService movieCommandService;
-    @MockBean
-    private UserValidationService userValidationService;
 
     private final List<Integer> movieCodes = List.of(1);
     private final LocalDate releaseDate = LocalDate.of(2004, 1, 1);
@@ -37,9 +33,6 @@ class MovieCommandServiceTest extends MovieRatingTestConfig {
     void setUp() {
         initMovies(movieCodes, releaseDate);
         initRating(ratingValues, userIds);
-        for (Long userId : userIds) {
-            BDDMockito.willDoNothing().given(userValidationService).validateUserExists(userId);
-        }
     }
 
     @DisplayName("기존 평점이 없을 때 영화 평점을 매길 수 있다.")
