@@ -2,7 +2,7 @@ package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
-import com.polar_moviechart.movieservice.domain.repository.MovieRepository;
+import com.polar_moviechart.movieservice.repository.MovieRepository;
 import com.polar_moviechart.movieservice.domain.service.UserValidationService;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
@@ -57,7 +57,7 @@ public class MovieQueryService {
     }
 
     public MovieDetailsDto getMovie(int code) {
-        return fetchMovie(code).toDto();
+        return MovieDetailsDto.from(fetchMovie(code));
     }
 
     private boolean isExists(int code) {

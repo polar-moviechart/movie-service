@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.repository;
+package com.polar_moviechart.movieservice.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

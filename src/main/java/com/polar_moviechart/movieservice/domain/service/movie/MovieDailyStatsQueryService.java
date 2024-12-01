@@ -2,8 +2,8 @@ package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
-import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsQueryRepository;
-import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsRepository;
+import com.polar_moviechart.movieservice.repository.MovieDailyStatsQueryRepository;
+import com.polar_moviechart.movieservice.repository.MovieDailyStatsRepository;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.StatDto;
@@ -28,7 +28,7 @@ public class MovieDailyStatsQueryService {
     public List<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
         Page<MovieDailyStat> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
         return dailyStats.getContent().stream()
-                .map(stats -> stats.toMovieDto())
+                .map(stats -> MovieDto.from(stats.getMovie(), stats.getRanking()))
                 .toList();
     }
 
@@ -37,7 +37,7 @@ public class MovieDailyStatsQueryService {
                 .findByMovieCodeOrderByDateDesc(code, pageable);
 
         List<StatDto> statDtos = dailyStats.stream()
-                .map(stat -> stat.toDto(statType))
+                .map(stat -> StatDto.from(stat, statType))
                 .toList();
         return new MovieDailyStatsResponse(code, statDtos);
     }

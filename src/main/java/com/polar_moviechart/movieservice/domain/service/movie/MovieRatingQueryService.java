@@ -1,7 +1,7 @@
 package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
-import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.repository.MovieRatingRepository;
 import com.polar_moviechart.movieservice.exception.ErrorCode;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import lombok.RequiredArgsConstructor;

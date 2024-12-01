@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.service.event.dto;
+package com.polar_moviechart.movieservice.event.dto;
 
 import lombok.Builder;
 
@@ -16,5 +16,15 @@ public class MovieLikeMessageDto implements MessageDto {
     @Override
     public MessageType getType() {
         return MessageType.LIKE;
+    }
+
+    @Override
+    public Integer getCode() {
+        return movieCode;
+    }
+
+    @Override
+    public Integer getValue() {
+        return likeCnt;
     }
 }

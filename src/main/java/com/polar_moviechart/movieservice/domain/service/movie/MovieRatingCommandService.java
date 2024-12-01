@@ -1,7 +1,7 @@
 package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
-import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.repository.MovieRatingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
