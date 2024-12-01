@@ -32,6 +32,7 @@ public class MovieEventConsumer {
     }
 
     private void handleMovieLikeEvent(MovieLikeMessageDto message) {
+        // TODO: 실제 좋아요 눌렀는지 확인 검증. 중복 방지 등등
         log.info("영화 좋아요 메시지 수신: {}", message);
         // 좋아요 이벤트 처리 로직
         movieRepository.findByCode(message.getCode())
