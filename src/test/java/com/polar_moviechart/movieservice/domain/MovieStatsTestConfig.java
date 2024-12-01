@@ -2,7 +2,7 @@ package com.polar_moviechart.movieservice.domain;
 
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
-import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsRepository;
+import com.polar_moviechart.movieservice.repository.MovieDailyStatsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class MovieStatsTestConfig extends MovieTestConfig {

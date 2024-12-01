@@ -3,8 +3,8 @@ package com.polar_moviechart.movieservice.domain;
 import com.polar_moviechart.movieservice.domain.entity.Director;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.entity.MovieDirector;
-import com.polar_moviechart.movieservice.domain.repository.DirectorRepository;
-import com.polar_moviechart.movieservice.domain.repository.MovieDirectorRepository;
+import com.polar_moviechart.movieservice.repository.DirectorRepository;
+import com.polar_moviechart.movieservice.repository.MovieDirectorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class DirectorTestConfig extends MovieTestConfig {

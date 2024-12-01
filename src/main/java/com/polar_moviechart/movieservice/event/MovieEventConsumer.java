@@ -1,8 +1,8 @@
-package com.polar_moviechart.movieservice.domain.service.event;
+package com.polar_moviechart.movieservice.event;
 
-import com.polar_moviechart.movieservice.domain.repository.MovieRepository;
-import com.polar_moviechart.movieservice.domain.service.event.dto.MessageDto;
-import com.polar_moviechart.movieservice.domain.service.event.dto.MovieLikeMessageDto;
+import com.polar_moviechart.movieservice.repository.MovieRepository;
+import com.polar_moviechart.movieservice.event.dto.MessageDto;
+import com.polar_moviechart.movieservice.event.dto.MovieLikeMessageDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

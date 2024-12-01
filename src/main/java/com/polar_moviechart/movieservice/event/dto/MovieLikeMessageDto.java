@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.service.event.dto;
+package com.polar_moviechart.movieservice.event.dto;
 
 import lombok.Builder;
 

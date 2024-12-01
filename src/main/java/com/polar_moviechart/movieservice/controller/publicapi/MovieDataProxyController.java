@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.controller.publicapi;
+package com.polar_moviechart.movieservice.controller.publicapi;
 
 import com.polar_moviechart.movieservice.domain.dto.ReviewResponse;
 import com.polar_moviechart.movieservice.utils.CustomResponse;

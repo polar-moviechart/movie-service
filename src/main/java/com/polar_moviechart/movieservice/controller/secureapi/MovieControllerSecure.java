@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.controller.secureapi;
+package com.polar_moviechart.movieservice.controller.secureapi;
 
 import com.polar_moviechart.movieservice.domain.service.movie.MovieCommandService;
 import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;

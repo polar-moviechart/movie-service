@@ -2,7 +2,7 @@ package com.polar_moviechart.movieservice.domain;
 
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
-import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.repository.MovieRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

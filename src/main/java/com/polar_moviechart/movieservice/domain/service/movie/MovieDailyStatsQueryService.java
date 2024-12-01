@@ -2,8 +2,8 @@ package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
-import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsQueryRepository;
-import com.polar_moviechart.movieservice.domain.repository.MovieDailyStatsRepository;
+import com.polar_moviechart.movieservice.repository.MovieDailyStatsQueryRepository;
+import com.polar_moviechart.movieservice.repository.MovieDailyStatsRepository;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.StatDto;
