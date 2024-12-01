@@ -1,6 +1,7 @@
 package com.polar_moviechart.movieservice.domain.repository;
 
 import com.polar_moviechart.movieservice.domain.MovieStatsTestConfig;
+import com.polar_moviechart.movieservice.repository.MovieDailyStatsQueryRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +13,8 @@ import java.util.List;
 
 
 class MovieDailyStatsQueryRepositoryTest extends MovieStatsTestConfig {
-    @Autowired MovieDailyStatsQueryRepository dailyStatsQueryRepository;
+    @Autowired
+    MovieDailyStatsQueryRepository dailyStatsQueryRepository;
     private List<Integer> movieCodes;
     private LocalDate releaseDate;
     private int stat = 100;

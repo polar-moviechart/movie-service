@@ -1,16 +1,14 @@
 package com.polar_moviechart.movieservice.domain.service;
 
 import com.polar_moviechart.movieservice.domain.MovieRatingTestConfig;
-import com.polar_moviechart.movieservice.domain.controller.secureapi.UpdateRatingRequest;
+import com.polar_moviechart.movieservice.controller.secureapi.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.MovieRating;
-import com.polar_moviechart.movieservice.domain.repository.MovieRatingRepository;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieCommandService;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieRatingQueryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,14 +17,12 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
+class MovieCommandServiceTest extends MovieRatingTestConfig {
 
     @Autowired
-    private MovieRatingRepository movieRatingRepository;
+    private MovieRatingQueryService movieRatingQueryService;
     @Autowired
-    private MovieRatingCommandService movieRatingCommandService;
-    @MockBean
-    private UserValidationService userValidationService;
+    private MovieCommandService movieCommandService;
 
     private final List<Integer> movieCodes = List.of(1);
     private final LocalDate releaseDate = LocalDate.of(2004, 1, 1);
@@ -37,9 +33,6 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
     void setUp() {
         initMovies(movieCodes, releaseDate);
         initRating(ratingValues, userIds);
-        for (Long userId : userIds) {
-            BDDMockito.willDoNothing().given(userValidationService).validateUserExists(userId);
-        }
     }
 
     @DisplayName("기존 평점이 없을 때 영화 평점을 매길 수 있다.")
@@ -52,7 +45,7 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
         UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(ratingValue);
 
         // when
-        movieRatingCommandService.updateRating(movieCode, userId, updateRatingRequest);
+        movieCommandService.updateRating(movieCode, userId, updateRatingRequest);
         // then
         Optional<MovieRating> savedRating = movieRatingRepository.findByCodeAndUserId(movieCode, userId);
         assertTrue(savedRating.isPresent());
@@ -72,7 +65,7 @@ class MovieRatingCommandServiceTest extends MovieRatingTestConfig {
         double newRatingValue = 2.0;
         UpdateRatingRequest updateRatingRequest = new UpdateRatingRequest(newRatingValue);
         // when
-        movieRatingCommandService.updateRating(existingMovieCode, userId, updateRatingRequest);
+        movieCommandService.updateRating(existingMovieCode, userId, updateRatingRequest);
         MovieRating updatedMovieRating = movieRatingRepository
                 .findByCodeAndUserId(existingMovieCode, userId).get();
         // then

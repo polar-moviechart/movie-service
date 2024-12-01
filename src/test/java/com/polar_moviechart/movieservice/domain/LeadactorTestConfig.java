@@ -1,8 +1,8 @@
 package com.polar_moviechart.movieservice.domain;
 
 import com.polar_moviechart.movieservice.domain.entity.*;
-import com.polar_moviechart.movieservice.domain.repository.LeadActorRepository;
-import com.polar_moviechart.movieservice.domain.repository.MovieLeadActorRepository;
+import com.polar_moviechart.movieservice.repository.LeadActorRepository;
+import com.polar_moviechart.movieservice.repository.MovieLeadActorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -1,11 +1,11 @@
-package com.polar_moviechart.movieservice.domain.controller.publicapi;
+package com.polar_moviechart.movieservice.controller.publicapi;
 
 import com.polar_moviechart.movieservice.domain.dto.ReviewResponse;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
-import com.polar_moviechart.movieservice.domain.service.movie.MovieService;
+import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/public/api/v1/movies")
 public class MovieControllerPublic extends MovieDataProxyController {
-    private final MovieService movieService;
+    private final MovieQueryService movieQueryService;
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
@@ -29,13 +28,13 @@ public class MovieControllerPublic extends MovieDataProxyController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        List<MovieDto> movieDtos = movieService.getMovies(targetDateReq, page, size);
+        List<MovieDto> movieDtos = movieQueryService.getMovies(targetDateReq, page, size);
         return ResponseEntity.ok(new CustomResponse<>(movieDtos));
     }
 
     @GetMapping("/{code}")
     public ResponseEntity<CustomResponse<MovieDetailsDto>> getMovie(@PathVariable(name = "code") int code) {
-        MovieDetailsDto movieDetailsDto = movieService.getMovie(code);
+        MovieDetailsDto movieDetailsDto = movieQueryService.getMovie(code);
         return ResponseEntity.ok(new CustomResponse<>(movieDetailsDto));
     }
 
@@ -43,13 +42,13 @@ public class MovieControllerPublic extends MovieDataProxyController {
     public ResponseEntity<CustomResponse<MovieDailyStatsResponse>> getMovieStats(@PathVariable(name = "code") int code,
                                                                                  @RequestParam(name = "limit") int limit,
                                                                                  @RequestParam(name = "type") StatType statType) {
-        MovieDailyStatsResponse movieDailyStats = movieService.getMovieStats(code, limit, statType);
+        MovieDailyStatsResponse movieDailyStats = movieQueryService.getMovieStats(code, limit, statType);
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
     }
 
     @GetMapping("/dates")
     public ResponseEntity<CustomResponse<List<LocalDate>>> getDates() {
-        List<LocalDate> statDates = movieService.getStatDates();
+        List<LocalDate> statDates = movieQueryService.getStatDates();
         return ResponseEntity.ok(new CustomResponse<>(statDates));
     }
 

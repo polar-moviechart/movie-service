@@ -1,0 +1,3 @@
+ALTER TABLE movies
+ADD COLUMN like_cnt INTEGER,
+ADD COLUMN rating DOUBLE;

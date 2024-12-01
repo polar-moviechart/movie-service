@@ -1,8 +1,7 @@
 package com.polar_moviechart.movieservice.domain;
 
 import com.polar_moviechart.movieservice.domain.entity.Movie;
-import com.polar_moviechart.movieservice.domain.repository.MovieRepository;
-import org.junit.jupiter.api.BeforeAll;
+import com.polar_moviechart.movieservice.repository.MovieRepository;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

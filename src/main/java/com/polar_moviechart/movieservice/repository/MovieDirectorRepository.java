@@ -1,4 +1,4 @@
-package com.polar_moviechart.movieservice.domain.repository;
+package com.polar_moviechart.movieservice.repository;
 
 import com.polar_moviechart.movieservice.domain.entity.MovieDirector;
 import org.springframework.data.jpa.repository.JpaRepository;
