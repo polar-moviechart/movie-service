@@ -3,7 +3,6 @@ package com.polar_moviechart.movieservice.domain.service.movie;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.repository.MovieRepository;
-import com.polar_moviechart.movieservice.domain.service.UserValidationService;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
@@ -25,7 +24,6 @@ public class MovieQueryService {
     private final MovieRepository movieRepository;
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieRatingQueryService movieRatingQueryService;
-    private final UserValidationService userValidationService;
 
     public List<MovieDto> getMovies(LocalDate targetDateReq, int page, int size) {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
@@ -41,8 +39,6 @@ public class MovieQueryService {
     }
 
     public Double getUserMovieRating(int code, Long userId) {
-        userValidationService.validateUserExists(userId);
-
         return movieRatingQueryService.getUserMovieRating(code, userId);
     }
 
