@@ -1,30 +1,34 @@
 package com.polar_moviechart.movieservice.event.dto;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class MovieLikeMessageDto implements MessageDto {
     private Long userId;
-    private Integer movieCode;
-    private Integer likeCnt;
+    private Integer code;
+    private Integer value;
+    private MessageType type;
 
     @Builder
-    public MovieLikeMessageDto(Long userId, Integer movieCode, Integer likeCnt) {
+    public MovieLikeMessageDto(Long userId, Integer code, Integer value, MessageType type) {
         this.userId = userId;
-        this.movieCode = movieCode;
-        this.likeCnt = likeCnt;
+        this.code = code;
+        this.value = value;
+        this.type = type;
     }
     @Override
     public MessageType getType() {
-        return MessageType.LIKE;
+        return type;
     }
 
     @Override
     public Integer getCode() {
-        return movieCode;
+        return this.code;
     }
 
     @Override
     public Integer getValue() {
-        return likeCnt;
+        return this.value;
     }
 }
