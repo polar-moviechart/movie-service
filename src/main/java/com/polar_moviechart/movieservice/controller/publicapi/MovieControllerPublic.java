@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/public/api/v1/movies")
-public class MovieControllerPublic extends MovieDataProxyController {
+public class MovieControllerPublic {
     private final MovieQueryService movieQueryService;
 
     @GetMapping("")
@@ -50,20 +50,5 @@ public class MovieControllerPublic extends MovieDataProxyController {
     public ResponseEntity<CustomResponse<List<LocalDate>>> getDates() {
         List<LocalDate> statDates = movieQueryService.getStatDates();
         return ResponseEntity.ok(new CustomResponse<>(statDates));
-    }
-
-    @Override
-    public ResponseEntity<CustomResponse<Integer>> getLikes(int code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<CustomResponse<List<ReviewResponse>>> getReviews(int code) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<CustomResponse<Double>> getRatings(int code) {
-        return null;
     }
 }
