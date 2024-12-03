@@ -22,9 +22,19 @@ spring:
     username: admin
     password: password
 
-rabbitmq:
-  queue:
-    name: user-service
+app:
+  rabbitmq:
+    exchange:
+      main: main_exchange     # 메인 교환기 이름
+      dlq: dlq_exchange       # DLQ 교환기 이름
+    queues:
+      movie-like: queue.movie.like        # 영화 좋아요 큐
+      movie-rating: queue.movie.rating    # 영화 평점 큐
+      dlq: queue.dlq                           # Dead Letter Queue
+    routing-keys:
+      movie-like: movie.like            # 영화 좋아요 라우팅 키
+      movie-rating: movie.rating        # 영화 평점 라우팅 키
+      dlq: dlq.key                            # Dead Letter Queue 라우팅 키
 
 springdoc:
   package-to-scan: com.polar_moviechart.movieservice.domain.controller

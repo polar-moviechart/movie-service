@@ -8,17 +8,17 @@ public class MovieLikeMessageDto implements MessageDto {
     private Long userId;
     private Integer code;
     private boolean value;
-    private MessageType type;
+    private UserActivityType type;
 
     @Builder
-    public MovieLikeMessageDto(Long userId, Integer code, boolean value, MessageType type) {
+    public MovieLikeMessageDto(Long userId, Integer code, boolean value, UserActivityType type) {
         this.userId = userId;
         this.code = code;
         this.value = value;
         this.type = type;
     }
     @Override
-    public MessageType getType() {
+    public UserActivityType getType() {
         return type;
     }
 

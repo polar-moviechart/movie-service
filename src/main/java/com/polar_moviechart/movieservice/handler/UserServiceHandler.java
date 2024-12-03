@@ -1,6 +1,7 @@
 package com.polar_moviechart.movieservice.handler;
 
 import com.polar_moviechart.movieservice.event.dto.MovieLikeMessageDto;
+import com.polar_moviechart.movieservice.event.dto.MovieRatingMessageDto;
 import com.polar_moviechart.movieservice.exception.ErrorCode;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,16 @@ public class UserServiceHandler {
         Boolean isUserMovieLikeState = userServiceClient.sendGetRequest(endPoint, null, Boolean.class);
 
         if (!isUserMovieLikeState.equals(message.getValue())) {
+            throw new MovieBusinessException(ErrorCode.DEFAULT_ERROR);
+        }
+    }
+
+    public void validateUserRatingState(MovieRatingMessageDto message) {
+        String endPoint = String.format(
+                "%s/movies/%s/rating",message.getUserId(), message.getCode());
+        Double userRating = userServiceClient.sendGetRequest(endPoint, null, Double.class);
+
+        if (!userRating.equals(message.getValue())) {
             throw new MovieBusinessException(ErrorCode.DEFAULT_ERROR);
         }
     }
