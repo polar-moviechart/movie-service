@@ -11,10 +11,12 @@ public class CustomResponse<T> {
     private Boolean isSuccess = true;
     private String errorMsg = null;
     private String code = null;
-    private Optional<T> data;
+    private T data;
+
+    public CustomResponse() {}
 
     public CustomResponse(T data) {
-        this.data = Optional.ofNullable(data);
+        this.data = data;
     }
 
     public CustomResponse(ErrorCode errorCode) {
