@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 public class MovieLikeMessageDto implements MessageDto {
     private Long userId;
     private Integer code;
-    private Integer value;
+    private boolean value;
     private MessageType type;
 
     @Builder
-    public MovieLikeMessageDto(Long userId, Integer code, Integer value, MessageType type) {
+    public MovieLikeMessageDto(Long userId, Integer code, boolean value, MessageType type) {
         this.userId = userId;
         this.code = code;
         this.value = value;
@@ -28,7 +28,12 @@ public class MovieLikeMessageDto implements MessageDto {
     }
 
     @Override
-    public Integer getValue() {
+    public Boolean getValue() {
         return this.value;
+    }
+
+    @Override
+    public Long getUserId() {
+        return this.userId;
     }
 }
