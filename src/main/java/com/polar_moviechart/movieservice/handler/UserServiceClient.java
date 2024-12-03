@@ -4,8 +4,13 @@ import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -23,10 +28,36 @@ public class UserServiceClient {
                 .getBody().getData();
     }
 
+    public <T> T sendGetRequest(String endPoint, Map<String, Object> params, Class<T> responseType) {
+        String requestUrl = userServiceUrl + endPoint;
+        String urlWithParams = getUrlWithParams(params, requestUrl);
+
+        CustomResponse<T> response = restTemplate.exchange(
+                urlWithParams,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<CustomResponse<T>>() {}
+        ).getBody();
+
+        if (!response.getIsSuccess()) {
+            throw new IllegalArgumentException(response.getErrorMsg());
+        }
+
+        return response.getData();
+    }
+
     public Object postRequest(Long userId, Object requestBody) {
         String requestUrl = userServiceUrl + userId;
 
         return restTemplate.postForEntity(requestUrl, requestBody, CustomResponse.class)
                 .getBody().getData();
+    }
+
+    private String getUrlWithParams(Map<String, Object> params, String requestUrl) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(requestUrl);
+        if (params != null && !params.isEmpty()) {
+            params.forEach(uriBuilder::queryParam);
+        }
+        return uriBuilder.toUriString();
     }
 }

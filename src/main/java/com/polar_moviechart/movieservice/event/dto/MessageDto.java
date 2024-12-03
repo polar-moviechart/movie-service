@@ -4,4 +4,6 @@ public interface MessageDto {
     MessageType getType();
     Integer getCode();
     Object getValue();
+
+    Long getUserId();
 }

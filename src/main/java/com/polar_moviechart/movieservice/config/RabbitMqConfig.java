@@ -4,6 +4,9 @@ import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,21 @@ public class RabbitMqConfig {
     @Bean
     public Queue userServiceQueue() {
         return new Queue(queueName, true);
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        // JSON 형식의 메시지를 직렬화하고 역직렬할 수 있도록 설정
+        rabbitTemplate.setMessageConverter(converter());
+        return rabbitTemplate;
+    }
+
+    @Bean
+    public MessageConverter converter() {
+        Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter();
+//        converter.setUseProjectionForInterfaces(true); // 메시지로 인터페이스 사용 가능
+        return converter;
     }
 
     @Bean
