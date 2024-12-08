@@ -1,6 +1,5 @@
 package com.polar_moviechart.movieservice.controller.publicapi;
 
-import com.polar_moviechart.movieservice.domain.dto.ReviewResponse;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
