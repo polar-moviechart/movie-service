@@ -49,7 +49,7 @@ public class MovieEventConsumer {
             channel.basicAck(deliveryTag, false); // 성공적으로 처리되었음을 RabbitMQ에 알림
         } catch (Exception e) {
             safeBasicNack(channel, deliveryTag, false); // DLQ로 메시지를 이동하도록 설정
-            throw new MovieBusinessException(ErrorCode.MESSAGE_PROCESS_EXCEPTION);
+            throw new MovieBusinessException(ErrorCode.MESSAGE_PROCESS_EXCEPTION, e);
         }
     }
 
@@ -62,6 +62,7 @@ public class MovieEventConsumer {
     private void handleMovieRatingEvent(MovieRatingMessageDto message) {
         log.info("영화 평점 메시지 수신: {}", message);
         userServiceHandler.validateUserRatingState(message);
+        movieCommandService.updateRating(message);
     }
 
     private void safeBasicNack(Channel channel, long deliveryTag, boolean multiple) {
