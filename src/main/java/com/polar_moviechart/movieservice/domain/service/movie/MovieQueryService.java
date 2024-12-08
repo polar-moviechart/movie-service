@@ -20,7 +20,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MovieQueryService {
-
     private final MovieRepository movieRepository;
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieRatingQueryService movieRatingQueryService;
@@ -60,7 +59,7 @@ public class MovieQueryService {
         return movieRepository.existsByCode(code);
     }
 
-    private Movie fetchMovie(int code) {
+    public Movie fetchMovie(int code) {
         return movieRepository.findByCode(code)
                 .orElseThrow(() -> new MovieBusinessException(ErrorCode.MOVIE_DOESNT_EXISTS));
     }

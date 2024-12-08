@@ -44,6 +44,9 @@ public class Movie {
     @Column
     private Double rating;
 
+    @Column(name = "rating_cnt")
+    private Integer ratingCnt;
+
     @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
     private List<MovieDailyStat> stats = new ArrayList<>();
 
@@ -73,5 +76,19 @@ public class Movie {
 
     public void addLikeCount(Integer value) {
         this.likeCnt += value;
+    }
+
+    public void addRatingCnt() {
+        this.ratingCnt++;
+    }
+
+    public void addRating(Double value) {
+        this.rating = (this.rating * this.ratingCnt + value) / (this.ratingCnt + 1);
+        addRatingCnt();
+    }
+
+    public void updateRating(Double newValue, Double oldValue) {
+        double newRating = (this.rating * this.ratingCnt - oldValue + newValue) / this.ratingCnt;
+        this.rating = newRating;
     }
 }

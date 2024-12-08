@@ -29,17 +29,6 @@ public class MovieControllerSecure {
         return ResponseEntity.ok(new CustomResponse<>(movieRating));
     }
 
-    @PostMapping("/{code}/rating")
-    public ResponseEntity<CustomResponse<Double>> updateRating(HttpServletRequest request,
-                                       @PathVariable(name = "code") int code,
-                                       @RequestBody UpdateRatingRequest updateRatingRequest) {
-        Long userId = getUserId(request);
-        userServiceHandler.validateUserExists(userId);
-        double ratingValue = movieCommandService.updateRating(code, userId, updateRatingRequest);
-
-        return ResponseEntity.ok(new CustomResponse<>(ratingValue));
-    }
-
     private Long getUserId(HttpServletRequest request) {
         return Long.parseLong(request.getHeader("X-User-Id"));
     }
