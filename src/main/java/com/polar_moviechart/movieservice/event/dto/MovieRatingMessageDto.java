@@ -10,6 +10,8 @@ public class MovieRatingMessageDto {
     private Long userId;
     private Integer code;
     private Double value;
+    private Boolean isNew;
+    private Double oldValue;
     private UserActivityType type;
 
     @Builder

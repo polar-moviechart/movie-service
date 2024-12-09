@@ -23,7 +23,7 @@ public class UserServiceHandler {
 
     public void validateUserMovieLikeState(MovieLikeMessageDto message) {
         String endPoint = String.format(
-                "%s/movies/%s/like",message.getUserId(), message.getCode());
+                "%s/movies/%s/likes",message.getUserId(), message.getCode());
         Boolean isUserMovieLikeState = userServiceClient.sendGetRequest(endPoint, null, Boolean.class);
 
         if (!isUserMovieLikeState.equals(message.getValue())) {
@@ -33,7 +33,7 @@ public class UserServiceHandler {
 
     public void validateUserRatingState(MovieRatingMessageDto message) {
         String endPoint = String.format(
-                "%s/movies/%s/rating",message.getUserId(), message.getCode());
+                "%s/movies/%s/ratings",message.getUserId(), message.getCode());
         Double userRating = userServiceClient.sendGetRequest(endPoint, null, Double.class);
 
         if (!userRating.equals(message.getValue())) {
