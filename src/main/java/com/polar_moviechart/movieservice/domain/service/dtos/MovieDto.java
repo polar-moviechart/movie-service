@@ -11,6 +11,7 @@ import java.util.List;
 public class MovieDto {
     private int code;
     private int ranking;
+    private double rating;
     private String title;
     private String synopsis;
     private List<String> poster;
@@ -22,9 +23,10 @@ public class MovieDto {
     private List<MovieLeadactorDto> movieLeadactorDtos;
 
     @Builder
-    public MovieDto(int code, int ranking, String title, String synopsis, List<String> poster, String details, LocalDate releaseDate, Integer productionYear, List<MovieDirectorDto> movieDirectorDtos, List<MovieLeadactorDto> movieLeadactorDtos) {
+    public MovieDto(int code, int ranking, Double rating, String title, String synopsis, List<String> poster, String details, LocalDate releaseDate, Integer productionYear, List<MovieDirectorDto> movieDirectorDtos, List<MovieLeadactorDto> movieLeadactorDtos) {
         this.code = code;
         this.ranking = ranking;
+        this.rating = rating;
         this.title = title;
         this.synopsis = synopsis;
         this.poster = poster;
@@ -39,6 +41,7 @@ public class MovieDto {
         return MovieDto.builder()
                 .code(movie.getCode())
                 .ranking(ranking)
+                .rating(movie.getRating())
                 .title(movie.getTitle())
                 .synopsis(movie.getSynopsys())
                 .details(movie.getDetails())
