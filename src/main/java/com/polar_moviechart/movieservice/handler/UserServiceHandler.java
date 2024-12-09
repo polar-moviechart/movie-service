@@ -43,7 +43,7 @@ public class UserServiceHandler {
 
     public Double getUserMovieRating(Long userId, int code) {
         String endPoint = String.format(
-                "%s/movies/%s/rating",userId, code);
+                "%s/movies/%s/ratings",userId, code);
         return userServiceClient.sendGetRequest(endPoint, null, Double.class);
     }
 }
