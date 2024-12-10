@@ -65,13 +65,16 @@ public class Movie {
     private List<MovieLeadactor> leadactors = new ArrayList<>();
 
     @Builder
-    public Movie(int code, String title, String details, LocalDate releaseDate, Integer productionYear, String synopsys) {
+    public Movie(int code, String title, String details, LocalDate releaseDate, Integer productionYear, String synopsys, Double rating, Integer ratingCnt, Integer likeCnt) {
         this.code = code;
         this.title = title;
         this.details = details;
         this.releaseDate = releaseDate;
         this.productionYear = productionYear;
         this.synopsys = synopsys;
+        this.rating = rating;
+        this.ratingCnt = ratingCnt;
+        this.likeCnt = likeCnt;
     }
 
     public void addLikeCount(Integer value) {

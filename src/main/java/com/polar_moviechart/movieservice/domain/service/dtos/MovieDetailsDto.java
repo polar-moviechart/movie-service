@@ -13,6 +13,7 @@ public class MovieDetailsDto {
     private String title;
     private Integer likeCnt;
     private Double rating;
+    private Double userMovieRating;
     private List<String> poster;
     private String details;
     private LocalDate releaseDate;
@@ -49,5 +50,13 @@ public class MovieDetailsDto {
                 .movieDirectorDtos(MovieDirectorDto.listFrom(movie.getDirectors()))
                 .movieLeadactorDtos(MovieLeadactorDto.listFrom(movie.getLeadactors()))
                 .build();
+    }
+
+    public void setUserMovieRating(Double userMovieRating) {
+        if (userMovieRating == null) {
+            userMovieRating = 0.0;
+        } else {
+            this.userMovieRating = userMovieRating;
+        }
     }
 }

@@ -40,4 +40,10 @@ public class UserServiceHandler {
             throw new MovieBusinessException(ErrorCode.DEFAULT_ERROR);
         }
     }
+
+    public Double getUserMovieRating(Long userId, int code) {
+        String endPoint = String.format(
+                "%s/movies/%s/ratings",userId, code);
+        return userServiceClient.sendGetRequest(endPoint, null, Double.class);
+    }
 }
