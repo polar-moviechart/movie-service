@@ -42,6 +42,9 @@ public abstract class MovieTestConfig {
                             .releaseDate(releaseDate)
                             .productionYear(year)
                             .synopsys("synopsys" + movieCode)
+                            .rating(0.0)
+                            .ratingCnt(0)
+                            .likeCnt(0)
                             .build());
             this.movies.add(movie);
         }
