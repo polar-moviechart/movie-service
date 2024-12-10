@@ -63,4 +63,9 @@ public class MovieQueryService {
         return movieRepository.findByCode(code)
                 .orElseThrow(() -> new MovieBusinessException(ErrorCode.MOVIE_DOESNT_EXISTS));
     }
+
+    public List<MovieDto> getMoviesByCodes(List<Integer> codes) {
+        List<Movie> movies = movieRepository.findByCodeIn(codes);
+        return MovieDto.listFrom(movies);
+    }
 }

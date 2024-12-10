@@ -51,4 +51,24 @@ public class MovieDto {
                 .movieLeadactorDtos(MovieLeadactorDto.listFrom(movie.getLeadactors()))
                 .build();
     }
+
+    public static MovieDto from(Movie movie) {
+        return MovieDto.builder()
+                .code(movie.getCode())
+                .rating(movie.getRating())
+                .title(movie.getTitle())
+                .synopsis(movie.getSynopsys())
+                .details(movie.getDetails())
+                .releaseDate(movie.getReleaseDate())
+                .productionYear(movie.getProductionYear())
+                .movieDirectorDtos(MovieDirectorDto.listFrom(movie.getDirectors()))
+                .movieLeadactorDtos(MovieLeadactorDto.listFrom(movie.getLeadactors()))
+                .build();
+    }
+
+    public static List<MovieDto> listFrom(List<Movie> movies) {
+        return movies.stream()
+                .map(movie -> MovieDto.from(movie))
+                .toList();
+    }
 }
