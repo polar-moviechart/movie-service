@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.handler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polar_moviechart.movieservice.handler.dtos.MovieLikesRes;
 import com.polar_moviechart.movieservice.handler.dtos.UserMoviesLikeReq;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
@@ -21,6 +22,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserServiceClient {
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Value("${user-service.url}")
     private String userServiceUrl;
@@ -47,14 +49,7 @@ public class UserServiceClient {
             throw new IllegalArgumentException(response.getErrorMsg());
         }
 
-        return response.getData();
-    }
-
-    public Object postRequest(Long userId, Object requestBody) {
-        String requestUrl = userServiceUrl + userId;
-
-        return restTemplate.postForEntity(requestUrl, requestBody, CustomResponse.class)
-                .getBody().getData();
+        return objectMapper.convertValue(response.getData(), responseType);
     }
 
     private String getUrlWithParams(Map<String, Object> params, String requestUrl) {

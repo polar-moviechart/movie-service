@@ -65,6 +65,10 @@ public class MovieQueryService {
 
     public List<MovieDto> getMoviesByCodes(List<Integer> codes) {
         List<Movie> movies = movieRepository.findByCodeIn(codes);
-        return MovieDto.listFrom(movies);
+        List<MovieDto> movieDtos = MovieDto.listFrom(movies);
+
+        movieDtos.stream().forEach(movieDto -> movieDto.setIsLike(true));
+
+        return movieDtos;
     }
 }
