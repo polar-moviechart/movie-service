@@ -5,10 +5,12 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class ReviewResponse {
-    private Long reviewId;
+public class MovieReviewRes {
+    private Long id;
+    private Long userId;
+    private String nickname;
+    private Integer code;
+    private String title;
     private String content;
-    private String reviewerName;
     private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
 }

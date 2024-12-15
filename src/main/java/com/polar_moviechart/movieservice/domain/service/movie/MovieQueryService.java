@@ -24,12 +24,11 @@ public class MovieQueryService {
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieRatingQueryService movieRatingQueryService;
 
-    public List<MovieDto> getMovies(LocalDate targetDateReq, int page, int size) {
+    public List<MovieDto> getMovies(LocalDate targetDateReq, PageRequest pageRequest) {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
                 .orElseGet(movieDailyStatsQueryService::findLatestDate);
 
-        PageRequest pageable = PageRequest.of(page, size);
-        return movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
+        return movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageRequest);
     }
 
     public MovieDailyStatsResponse getMovieStats(int code, int limit, StatType statType) {
@@ -66,6 +65,10 @@ public class MovieQueryService {
 
     public List<MovieDto> getMoviesByCodes(List<Integer> codes) {
         List<Movie> movies = movieRepository.findByCodeIn(codes);
-        return MovieDto.listFrom(movies);
+        List<MovieDto> movieDtos = MovieDto.listFrom(movies);
+
+        movieDtos.stream().forEach(movieDto -> movieDto.setIsLike(true));
+
+        return movieDtos;
     }
 }
