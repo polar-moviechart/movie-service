@@ -24,12 +24,11 @@ public class MovieQueryService {
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieRatingQueryService movieRatingQueryService;
 
-    public List<MovieDto> getMovies(LocalDate targetDateReq, int page, int size) {
+    public List<MovieDto> getMovies(LocalDate targetDateReq, PageRequest pageRequest) {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
                 .orElseGet(movieDailyStatsQueryService::findLatestDate);
 
-        PageRequest pageable = PageRequest.of(page, size);
-        return movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageable);
+        return movieDailyStatsQueryService.getMovieDailyRankInfo(targetDate, pageRequest);
     }
 
     public MovieDailyStatsResponse getMovieStats(int code, int limit, StatType statType) {

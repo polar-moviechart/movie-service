@@ -6,10 +6,12 @@ import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;
 import com.polar_moviechart.movieservice.handler.UserServiceHandler;
+import com.polar_moviechart.movieservice.handler.dtos.MovieLikesRes;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,12 +29,35 @@ public class MovieControllerPublic {
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
+            HttpServletRequest servletRequest,
             @RequestParam(required = false) LocalDate targetDateReq,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        List<MovieDto> movieDtos = movieQueryService.getMovies(targetDateReq, page, size);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        List<MovieDto> movieDtos = movieQueryService.getMovies(targetDateReq, pageRequest);
+
+        Long userId = getUserId(servletRequest);
+        if (userId != null) {
+            List<Integer> movieCodes = movieDtos.stream().map(MovieDto::getCode).toList();
+            setLike(movieDtos, userId, movieCodes);
+        }
         return ResponseEntity.ok(new CustomResponse<>(movieDtos));
+    }
+
+    private void setLike(List<MovieDto> movieDtos, Long userId, List<Integer> movieCodes) {
+        List<MovieLikesRes> userMovieLikes = userServiceHandler.getUserMovieLikes(movieCodes, userId);
+        for (MovieLikesRes movieLike : userMovieLikes) {
+            movieDtos.stream()
+                    .filter(movieDto -> movieDto.getCode() == movieLike.getMovieCode())
+                    .findFirst()
+                    .ifPresent(movieDto -> movieDto.setIsLike(movieLike.isLikeStatus()));
+        }
+//        userServiceHandler.getUserMovieLikes(movieCodes, userId)
+//                .forEach(movieLike -> movieDtos.stream()
+//                        .filter(movieDto -> movieDto.getCode() == movieLike.getMovieCode())
+//                        .findFirst()
+//                        .ifPresent(movieDto -> movieDto.setIsLike(movieLike.isLike())));
     }
 
     @GetMapping("/{code}")
@@ -63,6 +88,10 @@ public class MovieControllerPublic {
     }
 
     private Long getUserId(HttpServletRequest request) {
-        return Long.parseLong(request.getHeader("X-User-Id"));
+        String userId = request.getHeader("X-User-Id");
+        if (userId != null) {
+            return Long.parseLong(userId);
+        }
+        return null;
     }
 }

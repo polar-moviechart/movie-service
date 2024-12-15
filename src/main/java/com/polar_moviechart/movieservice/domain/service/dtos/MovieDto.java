@@ -18,6 +18,7 @@ public class MovieDto {
     private String details;
     private LocalDate releaseDate;
     private Integer productionYear;
+    private Boolean isLike = false;
 
     private List<MovieDirectorDto> movieDirectorDtos;
     private List<MovieLeadactorDto> movieLeadactorDtos;
@@ -70,5 +71,9 @@ public class MovieDto {
         return movies.stream()
                 .map(movie -> MovieDto.from(movie))
                 .toList();
+    }
+
+    public void setIsLike(Boolean isLike) {
+        this.isLike = isLike;
     }
 }
