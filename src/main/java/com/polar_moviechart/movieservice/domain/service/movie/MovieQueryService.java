@@ -9,6 +9,7 @@ import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import com.polar_moviechart.movieservice.exception.ErrorCode;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class MovieQueryService {
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
     private final MovieRatingQueryService movieRatingQueryService;
 
-    public List<MovieDto> getMovies(LocalDate targetDateReq, PageRequest pageRequest) {
+    public Page<MovieDto> getMovies(LocalDate targetDateReq, PageRequest pageRequest) {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
                 .orElseGet(movieDailyStatsQueryService::findLatestDate);
 

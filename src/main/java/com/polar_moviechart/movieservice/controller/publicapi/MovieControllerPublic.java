@@ -14,6 +14,7 @@ import com.polar_moviechart.movieservice.utils.CustomResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,19 +32,18 @@ public class MovieControllerPublic {
     private final UserServiceHandler userServiceHandler;
 
     @GetMapping("")
-    public ResponseEntity<CustomResponse<List<MovieDto>>> getMovies(
+    public ResponseEntity<CustomResponse<Page<MovieDto>>> getMovies(
             HttpServletRequest servletRequest,
             @RequestParam(required = false) LocalDate targetDateReq,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         PageRequest pageRequest = PageRequest.of(page, size);
-        List<MovieDto> movieDtos = movieQueryService.getMovies(targetDateReq, pageRequest);
+        Page<MovieDto> movieDtos = movieQueryService.getMovies(targetDateReq, pageRequest);
 
         Long userId = getUserId(servletRequest);
         if (userId != null) {
-            List<Integer> movieCodes = movieDtos.stream().map(MovieDto::getCode).toList();
-            setLike(movieDtos, userId, movieCodes, pageRequest);
+            setLike(movieDtos.getContent(), userId, pageRequest);
         }
         return ResponseEntity.ok(new CustomResponse<>(movieDtos));
     }
@@ -77,7 +77,8 @@ public class MovieControllerPublic {
         return ResponseEntity.ok(new CustomResponse<>(statDates));
     }
 
-    private void setLike(List<MovieDto> movieDtos, Long userId, List<Integer> movieCodes, PageRequest pageRequest) {
+    private void setLike(List<MovieDto> movieDtos, Long userId, PageRequest pageRequest) {
+        List<Integer> movieCodes = movieDtos.stream().map(MovieDto::getCode).toList();
         List<MovieLikesRes> userMovieLikes = userServiceHandler.getUserMovieLikes(movieCodes, userId, pageRequest);
         for (MovieLikesRes movieLike : userMovieLikes) {
             movieDtos.stream()
