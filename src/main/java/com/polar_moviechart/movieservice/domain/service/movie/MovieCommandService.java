@@ -11,15 +11,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class MovieCommandService {
     private final MovieQueryService movieQueryService;
     private final MovieRepository movieRepository;
-    private final MovieRatingCommandService movieRatingCommandService;
-    private final MovieRatingQueryService movieRatingQueryService;
 
     @Transactional
     public void updateLike(MovieLikeMessageDto message) {
