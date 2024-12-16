@@ -25,11 +25,10 @@ public class MovieDailyStatsQueryService {
     private final MovieDailyStatsQueryRepository dailyStatsQueryRepository;
 
     @Transactional(readOnly = true)
-    public List<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
+    public Page<MovieDto> getMovieDailyRankInfo(LocalDate targetDate, Pageable pageable) {
         Page<MovieDailyStat> dailyStats = movieDailyStatsRepository.findAllByDate(targetDate, pageable);
-        return dailyStats.getContent().stream()
-                .map(stats -> MovieDto.from(stats.getMovie(), stats.getRanking()))
-                .toList();
+        return dailyStats
+                .map(stats -> MovieDto.from(stats.getMovie(), stats.getRanking()));
     }
 
     public MovieDailyStatsResponse getMovieDailyStats(int code, PageRequest pageable, StatType statType) {
