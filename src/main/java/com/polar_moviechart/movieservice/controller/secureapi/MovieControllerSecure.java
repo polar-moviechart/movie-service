@@ -9,6 +9,8 @@ import com.polar_moviechart.movieservice.utils.CustomResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,18 +37,19 @@ public class MovieControllerSecure {
     }
 
     @GetMapping("/likes")
-    public ResponseEntity<CustomResponse<List<MovieDto>>> getLikedMovies(
+    public ResponseEntity<CustomResponse<Page<MovieDto>>> getLikedMovies(
             HttpServletRequest request,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
         Long userId = getUserId(request);
         PageRequest pageable = PageRequest.of(page, size);
-        List<MovieLikesRes> userMovieLikes = userServiceHandler.getUserMovieLikes(null, userId, pageable);
+        Page<MovieLikesRes> userMovieLikes = userServiceHandler.getUserMovieLikes(null, userId, pageable);
 
         List<Integer> movieCodes = userMovieLikes.stream().map(MovieLikesRes::getMovieCode).toList();
         List<MovieDto> likedMovies = movieQueryService.getMoviesByCodes(movieCodes);
+        PageImpl<MovieDto> pagedMovieDtos = new PageImpl<>(likedMovies, pageable, userMovieLikes.getTotalElements());
 
-        return ResponseEntity.ok(new CustomResponse<>(likedMovies));
+        return ResponseEntity.ok(new CustomResponse<>(pagedMovieDtos));
     }
 
     private Long getUserId(HttpServletRequest request) {
