@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service.dtos;
 
+import com.polar_moviechart.movieservice.domain.dto.UserActivityInfo;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class MovieDetailsDto {
     private LocalDate releaseDate;
     private Integer productionYear;
     private String synopsys;
+    private Boolean isLike;
 
     private List<MovieDirectorDto> movieDirectorDtos;
     private List<MovieLeadactorDto> movieLeadactorDtos;
@@ -57,6 +59,21 @@ public class MovieDetailsDto {
             userMovieRating = 0.0;
         } else {
             this.userMovieRating = userMovieRating;
+        }
+    }
+
+    public void setUserActivityInfo(UserActivityInfo activityInfo) {
+        Boolean likeStatus = activityInfo.getLikeStatus();
+        if (likeStatus == true) {
+            this.isLike = true;
+        } else {
+            this.isLike = false;
+        }
+
+        if (userMovieRating == null) {
+            userMovieRating = 0.0;
+        } else {
+            this.userMovieRating = activityInfo.getRating();
         }
     }
 }

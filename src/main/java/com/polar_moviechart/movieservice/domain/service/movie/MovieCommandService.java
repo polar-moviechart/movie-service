@@ -1,9 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service.movie;
 
-import com.polar_moviechart.movieservice.controller.secureapi.UpdateRatingRequest;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
-import com.polar_moviechart.movieservice.domain.entity.MovieRating;
-import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.event.dto.MovieLikeMessageDto;
 import com.polar_moviechart.movieservice.event.dto.MovieRatingMessageDto;
 import com.polar_moviechart.movieservice.repository.MovieRepository;
@@ -11,15 +8,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class MovieCommandService {
     private final MovieQueryService movieQueryService;
     private final MovieRepository movieRepository;
-    private final MovieRatingCommandService movieRatingCommandService;
-    private final MovieRatingQueryService movieRatingQueryService;
 
     @Transactional
     public void updateLike(MovieLikeMessageDto message) {

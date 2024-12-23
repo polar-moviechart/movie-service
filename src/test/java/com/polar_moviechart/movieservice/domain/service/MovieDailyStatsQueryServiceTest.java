@@ -37,7 +37,8 @@ class MovieDailyStatsQueryServiceTest extends MovieStatsTestConfig {
         int statCnt = movieCodes.size();
         PageRequest pageable = PageRequest.of(0, statCnt);
         // when
-        List<MovieDto> movieDailyRankInfo = movieDailyStatsQueryService.getMovieDailyRankInfo(releaseDate, pageable);
+        List<MovieDto> movieDailyRankInfo =
+                movieDailyStatsQueryService.getMovieDailyRankInfo(releaseDate, pageable).getContent();
         // then
         Assertions.assertThat(movieDailyRankInfo.size()).isEqualTo(statCnt);
     }
