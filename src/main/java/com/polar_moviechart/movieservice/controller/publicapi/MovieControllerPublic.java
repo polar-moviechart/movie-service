@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.controller.publicapi;
 
+import com.polar_moviechart.movieservice.domain.dto.MovieStatDatesRes;
 import com.polar_moviechart.movieservice.domain.dto.UserActivityInfo;
 import com.polar_moviechart.movieservice.domain.enums.Category;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -33,7 +33,7 @@ public class MovieControllerPublic {
     @GetMapping("")
     public ResponseEntity<CustomResponse<Page<MovieDto>>> getMovies(
             HttpServletRequest servletRequest,
-            @RequestParam(required = false) LocalDate targetDateReq,
+            @RequestParam(required = false, name = "targetDate") LocalDate targetDateReq,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
@@ -70,10 +70,10 @@ public class MovieControllerPublic {
         return ResponseEntity.ok(new CustomResponse<>(movieDailyStats));
     }
 
-    @GetMapping("/dates")
-    public ResponseEntity<CustomResponse<List<LocalDate>>> getDates() {
-        List<LocalDate> statDates = movieQueryService.getStatDates();
-        return ResponseEntity.ok(new CustomResponse<>(statDates));
+    @GetMapping("/date-range")
+    public ResponseEntity<CustomResponse<MovieStatDatesRes>> getMovieDateRange() {
+        MovieStatDatesRes movieDateRange = movieQueryService.getMovieDateRange();
+        return ResponseEntity.ok(new CustomResponse<>(movieDateRange));
     }
 
     private void setLike(List<MovieDto> movieDtos, Long userId, PageRequest pageRequest) {

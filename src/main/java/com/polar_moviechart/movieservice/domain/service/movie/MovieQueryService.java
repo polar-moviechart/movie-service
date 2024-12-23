@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service.movie;
 
+import com.polar_moviechart.movieservice.domain.dto.MovieStatDatesRes;
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.handler.dtos.MovieRatingRes;
@@ -37,8 +38,8 @@ public class MovieQueryService {
         return movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statType);
     }
 
-    public List<LocalDate> getStatDates() {
-        return movieDailyStatsQueryService.getDates();
+    public MovieStatDatesRes getMovieDateRange() {
+        return movieDailyStatsQueryService.getMovieDateRange();
     }
 
     public void validateExists(int code) {

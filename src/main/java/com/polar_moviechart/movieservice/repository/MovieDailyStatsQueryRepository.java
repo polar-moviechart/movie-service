@@ -21,4 +21,18 @@ public class MovieDailyStatsQueryRepository {
                 .distinct()
                 .fetch();
     }
+
+    public LocalDate getStartDate() {
+        return queryFactory
+                .select(movieDailyStat.date.min())
+                .from(movieDailyStat)
+                .fetchOne();
+    }
+
+    public LocalDate getEndDate() {
+        return queryFactory
+                .select(movieDailyStat.date.max())
+                .from(movieDailyStat)
+                .fetchOne();
+    }
 }

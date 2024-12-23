@@ -1,5 +1,6 @@
 package com.polar_moviechart.movieservice.domain.service.movie;
 
+import com.polar_moviechart.movieservice.domain.dto.MovieStatDatesRes;
 import com.polar_moviechart.movieservice.domain.entity.MovieDailyStat;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.repository.MovieDailyStatsQueryRepository;
@@ -46,7 +47,9 @@ public class MovieDailyStatsQueryService {
                 .findFirstByOrderByDateDesc().getDate();
     }
 
-    public List<LocalDate> getDates() {
-        return dailyStatsQueryRepository.getAllDates();
+    public MovieStatDatesRes getMovieDateRange() {
+        LocalDate startDate = dailyStatsQueryRepository.getStartDate();
+        LocalDate endDate = dailyStatsQueryRepository.getEndDate();
+        return  new MovieStatDatesRes(startDate, endDate);
     }
 }
