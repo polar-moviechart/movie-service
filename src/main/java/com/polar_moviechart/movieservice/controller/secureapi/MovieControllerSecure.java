@@ -5,6 +5,7 @@ import com.polar_moviechart.movieservice.domain.service.movie.MovieCommandServic
 import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;
 import com.polar_moviechart.movieservice.handler.UserServiceHandler;
 import com.polar_moviechart.movieservice.handler.dtos.MovieLikesRes;
+import com.polar_moviechart.movieservice.handler.dtos.MovieRatingRes;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,16 +27,6 @@ public class MovieControllerSecure {
     private final MovieQueryService movieQueryService;
     private final UserServiceHandler userServiceHandler;
 
-    @GetMapping("/{code}/rating")
-    public ResponseEntity<CustomResponse<Double>> getMovieRating(HttpServletRequest request,
-                                       @PathVariable(name = "code") int code) {
-        Long userId = (Long) request.getAttribute("userId");
-        userServiceHandler.validateUserExists(userId);
-        Double movieRating = movieQueryService.getUserMovieRating(code, userId);
-
-        return ResponseEntity.ok(new CustomResponse<>(movieRating));
-    }
-
     @GetMapping("/likes")
     public ResponseEntity<CustomResponse<Page<MovieDto>>> getLikedMovies(
             HttpServletRequest request,
@@ -50,6 +41,19 @@ public class MovieControllerSecure {
         PageImpl<MovieDto> pagedMovieDtos = new PageImpl<>(likedMovies, pageable, userMovieLikes.getTotalElements());
 
         return ResponseEntity.ok(new CustomResponse<>(pagedMovieDtos));
+    }
+
+    @GetMapping("/ratings")
+    public ResponseEntity<CustomResponse<Page<MovieRatingRes>>> getMyMovieRatings(
+            HttpServletRequest request,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) {
+        Long userId = getUserId(request);
+        PageRequest pageable = PageRequest.of(page, size);
+        Page<MovieRatingRes> pagedUserMovieRatings = userServiceHandler.getUserMovieRatings(userId, pageable);
+        movieQueryService.setMovieRatingInfo(pagedUserMovieRatings);
+
+        return ResponseEntity.ok(new CustomResponse<>(pagedUserMovieRatings));
     }
 
     private Long getUserId(HttpServletRequest request) {

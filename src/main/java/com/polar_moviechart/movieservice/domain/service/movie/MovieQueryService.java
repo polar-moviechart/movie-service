@@ -2,6 +2,7 @@ package com.polar_moviechart.movieservice.domain.service.movie;
 
 import com.polar_moviechart.movieservice.domain.entity.Movie;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
+import com.polar_moviechart.movieservice.handler.dtos.MovieRatingRes;
 import com.polar_moviechart.movieservice.repository.MovieRepository;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
@@ -23,7 +24,6 @@ import java.util.Optional;
 public class MovieQueryService {
     private final MovieRepository movieRepository;
     private final MovieDailyStatsQueryService movieDailyStatsQueryService;
-    private final MovieRatingQueryService movieRatingQueryService;
 
     public Page<MovieDto> getMovies(LocalDate targetDateReq, PageRequest pageRequest) {
         LocalDate targetDate = Optional.ofNullable(targetDateReq)
@@ -35,10 +35,6 @@ public class MovieQueryService {
     public MovieDailyStatsResponse getMovieStats(int code, int limit, StatType statType) {
         PageRequest pageable = PageRequest.of(0, limit);
         return movieDailyStatsQueryService.getMovieDailyStats(code, pageable, statType);
-    }
-
-    public Double getUserMovieRating(int code, Long userId) {
-        return movieRatingQueryService.getUserMovieRating(code, userId);
     }
 
     public List<LocalDate> getStatDates() {
@@ -71,5 +67,19 @@ public class MovieQueryService {
         movieDtos.stream().forEach(movieDto -> movieDto.setIsLike(true));
 
         return movieDtos;
+    }
+
+    public void setMovieRatingInfo(Page<MovieRatingRes> pagedUserMoviesRating) {
+        List<MovieRatingRes> userMoviesRating = pagedUserMoviesRating.getContent();
+        List<Integer> movieCodes = userMoviesRating.stream()
+                .map(movieRating -> movieRating.getMovieCode()).toList();
+        List<Movie> movies = movieRepository.findByCodeIn(movieCodes);
+
+        userMoviesRating.forEach(ratingRes ->
+                movies.stream()
+                        .filter(movie -> movie.getCode() == ratingRes.getMovieCode())
+                        .findFirst()
+                        .ifPresent(movie -> ratingRes.setTitle(movie.getTitle()))
+        );
     }
 }
