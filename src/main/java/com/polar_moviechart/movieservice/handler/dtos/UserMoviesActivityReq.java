@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class UserMoviesLikeReq {
+public class UserMoviesActivityReq {
     private Long userId;
     private List<Integer> movieCodes = new ArrayList<>();
-    public UserMoviesLikeReq(Long userId, List<Integer> movieCodes) {
+    public UserMoviesActivityReq(Long userId, List<Integer> movieCodes) {
         this.userId = userId;
         this.movieCodes = movieCodes;
     }
 
-    public UserMoviesLikeReq(Long userId) {
+    public UserMoviesActivityReq(Long userId) {
         this.userId = userId;
     }
 }

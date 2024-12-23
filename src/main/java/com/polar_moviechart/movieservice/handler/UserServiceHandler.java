@@ -7,14 +7,16 @@ import com.polar_moviechart.movieservice.event.dto.MovieRatingMessageDto;
 import com.polar_moviechart.movieservice.exception.ErrorCode;
 import com.polar_moviechart.movieservice.exception.MovieBusinessException;
 import com.polar_moviechart.movieservice.handler.dtos.MovieLikesRes;
-import com.polar_moviechart.movieservice.handler.dtos.UserMoviesLikeReq;
+import com.polar_moviechart.movieservice.handler.dtos.MovieRatingRes;
+import com.polar_moviechart.movieservice.handler.dtos.RestResponsePage;
+import com.polar_moviechart.movieservice.handler.dtos.UserMoviesActivityReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 @Slf4j
@@ -56,19 +58,25 @@ public class UserServiceHandler {
         return userServiceClient.sendGetRequest(endPoint, null, Double.class);
     }
 
-    public List<MovieLikesRes> getUserMovieLikes(List<Integer> movieCodes, Long userId, PageRequest pageable) {
-        String endPoint = "/movies/likes";
-        UserMoviesLikeReq userMoviesLikeReq = new UserMoviesLikeReq(userId, movieCodes);
-        List<MovieLikesRes> movieLikesRes = userServiceClient.sendPostRequest(
-                endPoint, userMoviesLikeReq, new ParameterizedTypeReference<List<MovieLikesRes>>() {});
-        return movieLikesRes;
+    public Page<MovieLikesRes> getUserMovieLikes(List<Integer> movieCodes, Long userId, PageRequest pageable) {
+        String endPoint = String.format("/movies/likes?page=%d&size=%d", pageable.getPageNumber(), pageable.getPageSize());
+        UserMoviesActivityReq userMoviesActivityReq = new UserMoviesActivityReq(userId, movieCodes);
+        return userServiceClient.sendPagedPostRequest(
+                endPoint, userMoviesActivityReq, pageable, new ParameterizedTypeReference<RestResponsePage<MovieLikesRes>>() {});
+    }
+
+    public Page<MovieRatingRes> getUserMovieRatings(Long userId, PageRequest pageable) {
+        String endPoint = String.format("/movies/ratings?page=%d&size=%d", pageable.getPageNumber(), pageable.getPageSize());
+        UserMoviesActivityReq userMoviesActivityReq = new UserMoviesActivityReq(userId);
+        return userServiceClient.sendPagedPostRequest(
+                endPoint, userMoviesActivityReq, pageable, new ParameterizedTypeReference<RestResponsePage<MovieRatingRes>>() {});
     }
 
     public List<Integer> getUserMovieLikes(Long userId, PageRequest pageable) {
         String endPoint = "/movies/likes";
-        UserMoviesLikeReq userMoviesLikeReq = new UserMoviesLikeReq(userId);
+        UserMoviesActivityReq userMoviesActivityReq = new UserMoviesActivityReq(userId);
         List<MovieLikesRes> movieLikesRes = userServiceClient.sendPostRequest(
-                endPoint, userMoviesLikeReq, new ParameterizedTypeReference<List<MovieLikesRes>>() {});
+                endPoint, userMoviesActivityReq, new ParameterizedTypeReference<List<MovieLikesRes>>() {});
         return movieLikesRes.stream().map(MovieLikesRes::getMovieCode).toList();
     }
 

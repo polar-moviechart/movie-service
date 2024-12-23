@@ -2,14 +2,18 @@ package com.polar_moviechart.movieservice.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.polar_moviechart.movieservice.handler.dtos.MovieLikesRes;
-import com.polar_moviechart.movieservice.handler.dtos.UserMoviesLikeReq;
+import com.polar_moviechart.movieservice.handler.dtos.RestResponsePage;
+import com.polar_moviechart.movieservice.handler.dtos.UserMoviesActivityReq;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -60,13 +64,32 @@ public class UserServiceClient {
         return uriBuilder.toUriString();
     }
 
-    public List<MovieLikesRes> sendPostRequest(String endPoint, UserMoviesLikeReq userMoviesLikeReq, ParameterizedTypeReference<List<MovieLikesRes>> responseType) {
+    public List<MovieLikesRes> sendPostRequest(String endPoint, UserMoviesActivityReq userMoviesActivityReq, ParameterizedTypeReference<List<MovieLikesRes>> responseType) {
         String requestUrl = userServiceUrl + endPoint;
         return restTemplate.exchange(
                 requestUrl,
                 HttpMethod.POST,
-                new HttpEntity<>(userMoviesLikeReq),
+                new HttpEntity<>(userMoviesActivityReq),
                 responseType
         ).getBody();
+    }
+
+    public <T> Page<T> sendPagedPostRequest(String endpoint,
+                                                    UserMoviesActivityReq userMoviesActivityReq,
+                                                    PageRequest pageable,
+                                                    ParameterizedTypeReference<RestResponsePage<T>> responseType) {
+        String requestUrl = userServiceUrl + endpoint;
+        ResponseEntity<RestResponsePage<T>> responseEntity = restTemplate.exchange(
+                requestUrl,
+                HttpMethod.POST,
+                new HttpEntity<>(userMoviesActivityReq),
+                responseType
+        );
+
+        RestResponsePage<T> restResponsePage = responseEntity.getBody();
+        if (restResponsePage == null) {
+            return Page.empty(); // 응답이 없을 경우 빈 페이지 반환
+        }
+        return restResponsePage;
     }
 }

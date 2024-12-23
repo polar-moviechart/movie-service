@@ -7,7 +7,6 @@ import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResp
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
 import com.polar_moviechart.movieservice.domain.service.movie.MovieQueryService;
-import com.polar_moviechart.movieservice.event.dto.UserActivityType;
 import com.polar_moviechart.movieservice.handler.UserServiceHandler;
 import com.polar_moviechart.movieservice.handler.dtos.MovieLikesRes;
 import com.polar_moviechart.movieservice.utils.CustomResponse;
@@ -79,8 +78,8 @@ public class MovieControllerPublic {
 
     private void setLike(List<MovieDto> movieDtos, Long userId, PageRequest pageRequest) {
         List<Integer> movieCodes = movieDtos.stream().map(MovieDto::getCode).toList();
-        List<MovieLikesRes> userMovieLikes = userServiceHandler.getUserMovieLikes(movieCodes, userId, pageRequest);
-        for (MovieLikesRes movieLike : userMovieLikes) {
+        Page<MovieLikesRes> userMovieLikes = userServiceHandler.getUserMovieLikes(movieCodes, userId, pageRequest);
+        for (MovieLikesRes movieLike : userMovieLikes.getContent()) {
             movieDtos.stream()
                     .filter(movieDto -> movieDto.getCode() == movieLike.getMovieCode())
                     .findFirst()
