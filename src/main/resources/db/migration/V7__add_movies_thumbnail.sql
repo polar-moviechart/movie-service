@@ -1,0 +1,2 @@
+ALTER TABLE movies
+ADD COLUMN thumbnail VARCHAR(150);
