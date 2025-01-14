@@ -14,6 +14,7 @@ public class MovieDto {
     private double rating;
     private String title;
     private String synopsis;
+    private String thumbnail;
     private List<String> poster;
     private String details;
     private LocalDate releaseDate;
@@ -24,12 +25,13 @@ public class MovieDto {
     private List<MovieLeadactorDto> movieLeadactorDtos;
 
     @Builder
-    public MovieDto(int code, int ranking, Double rating, String title, String synopsis, List<String> poster, String details, LocalDate releaseDate, Integer productionYear, List<MovieDirectorDto> movieDirectorDtos, List<MovieLeadactorDto> movieLeadactorDtos) {
+    public MovieDto(int code, int ranking, Double rating, String title, String synopsis, String thumbnail, List<String> poster, String details, LocalDate releaseDate, Integer productionYear, List<MovieDirectorDto> movieDirectorDtos, List<MovieLeadactorDto> movieLeadactorDtos) {
         this.code = code;
         this.ranking = ranking;
         this.rating = rating;
         this.title = title;
         this.synopsis = synopsis;
+        this.thumbnail = thumbnail;
         this.poster = poster;
         this.details = details;
         this.releaseDate = releaseDate;
@@ -41,6 +43,7 @@ public class MovieDto {
     public static MovieDto from(Movie movie, int ranking) {
         return MovieDto.builder()
                 .code(movie.getCode())
+                .thumbnail(movie.getThumbnail())
                 .ranking(ranking)
                 .rating(movie.getRating())
                 .title(movie.getTitle())
