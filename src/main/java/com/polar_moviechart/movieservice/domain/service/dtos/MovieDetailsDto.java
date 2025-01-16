@@ -12,6 +12,7 @@ import java.util.List;
 public class MovieDetailsDto {
     private int code;
     private String title;
+    private String thumbnail;
     private Integer likeCnt;
     private Double rating;
     private Double userMovieRating;
@@ -26,9 +27,10 @@ public class MovieDetailsDto {
     private List<MovieLeadactorDto> movieLeadactorDtos;
 
     @Builder
-    public MovieDetailsDto(int code, String title, Integer likeCnt, Double rating, String details, LocalDate releaseDate, Integer productionYear, String synopsys, List<MovieDirectorDto> movieDirectorDtos, List<MovieLeadactorDto> movieLeadactorDtos) {
+    public MovieDetailsDto(int code, String title, String thumbnail, Integer likeCnt, Double rating, String details, LocalDate releaseDate, Integer productionYear, String synopsys, List<MovieDirectorDto> movieDirectorDtos, List<MovieLeadactorDto> movieLeadactorDtos) {
         this.code = code;
         this.title = title;
+        this.thumbnail = thumbnail;
         this.likeCnt = likeCnt;
         this.rating = rating;
         this.details = details;
@@ -43,6 +45,7 @@ public class MovieDetailsDto {
         return MovieDetailsDto.builder()
                 .code(movie.getCode())
                 .title(movie.getTitle())
+                .thumbnail(movie.getThumbnail())
                 .likeCnt(movie.getLikeCnt())
                 .rating(movie.getRating())
                 .details(movie.getDetails())
