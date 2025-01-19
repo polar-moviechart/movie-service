@@ -5,7 +5,6 @@ import com.polar_moviechart.movieservice.domain.dto.UserActivityInfo;
 import com.polar_moviechart.movieservice.domain.enums.Category;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
 import com.polar_moviechart.movieservice.domain.service.S3Service;
-import com.polar_moviechart.movieservice.domain.service.dtos.HasThumbnail;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
@@ -100,6 +99,4 @@ public class MovieControllerPublic {
         }
         return null;
     }
-
-
 }
