@@ -4,6 +4,8 @@ import com.polar_moviechart.movieservice.domain.dto.MovieStatDatesRes;
 import com.polar_moviechart.movieservice.domain.dto.UserActivityInfo;
 import com.polar_moviechart.movieservice.domain.enums.Category;
 import com.polar_moviechart.movieservice.domain.enums.StatType;
+import com.polar_moviechart.movieservice.domain.service.S3Service;
+import com.polar_moviechart.movieservice.domain.service.dtos.HasThumbnail;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDailyStatsResponse;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDetailsDto;
 import com.polar_moviechart.movieservice.domain.service.dtos.MovieDto;
@@ -29,6 +31,7 @@ import java.util.List;
 public class MovieControllerPublic {
     private final MovieQueryService movieQueryService;
     private final UserServiceHandler userServiceHandler;
+    private final S3Service s3Service;
 
     @GetMapping("")
     public ResponseEntity<CustomResponse<Page<MovieDto>>> getMovies(
@@ -44,6 +47,8 @@ public class MovieControllerPublic {
         if (userId != null) {
             setLike(movieDtos.getContent(), userId, pageRequest);
         }
+        s3Service.setS3ImageUrl(movieDtos.getContent());
+
         return ResponseEntity.ok(new CustomResponse<>(movieDtos));
     }
 
@@ -58,6 +63,7 @@ public class MovieControllerPublic {
             UserActivityInfo activityInfo = userServiceHandler.getUserActivity(userId, code, Category.MOVIE);
             movieDetailsDto.setUserActivityInfo(activityInfo);
         }
+        s3Service.setS3ImageUrl(movieDetailsDto);
 
         return ResponseEntity.ok(new CustomResponse<>(movieDetailsDto));
     }
@@ -94,4 +100,6 @@ public class MovieControllerPublic {
         }
         return null;
     }
+
+
 }

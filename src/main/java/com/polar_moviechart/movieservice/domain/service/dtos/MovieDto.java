@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-public class MovieDto {
+public class MovieDto implements HasThumbnail {
     private int code;
     private int ranking;
     private double rating;
@@ -78,5 +78,15 @@ public class MovieDto {
 
     public void setIsLike(Boolean isLike) {
         this.isLike = isLike;
+    }
+
+    @Override
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnail = thumbnailUrl;
+    }
+
+    @Override
+    public String getThumbnailUrl() {
+        return this.thumbnail;
     }
 }

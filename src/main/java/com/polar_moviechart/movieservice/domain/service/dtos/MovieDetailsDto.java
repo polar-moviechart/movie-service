@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Getter
-public class MovieDetailsDto {
+public class MovieDetailsDto implements HasThumbnail {
     private int code;
     private String title;
     private String thumbnail;
@@ -78,5 +78,15 @@ public class MovieDetailsDto {
         } else {
             this.userMovieRating = activityInfo.getRating();
         }
+    }
+
+    @Override
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnail = thumbnailUrl;
+    }
+
+    @Override
+    public String getThumbnailUrl() {
+        return this.thumbnail;
     }
 }
