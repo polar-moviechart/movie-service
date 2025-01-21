@@ -23,13 +23,13 @@ public class MovieDailyStat {
     private Long id;
 
     @Column(nullable = false)
-    private int ranking;
+    private Integer ranking;
 
     @Column(nullable = false)
-    private int revenue;
+    private long revenue;
 
     @Column(nullable = false)
-    private int audience;
+    private Integer audience;
 
     @Column(nullable = false)
     private LocalDate date;
@@ -45,7 +45,7 @@ public class MovieDailyStat {
     private Movie movie;
 
     @Builder
-    public MovieDailyStat(int ranking, int revenue, LocalDate date, int audience, Movie movie) {
+    public MovieDailyStat(int ranking, long revenue, LocalDate date, int audience, Movie movie) {
         this.ranking = ranking;
         this.revenue = revenue;
         this.date = date;
